@@ -9,7 +9,6 @@ import FileManager from "./pages/FileManager";
 import Meetings from "./pages/Meetings";
 import Editorials from "./pages/Editorials";
 import Chat from "./pages/Chat";
-import Setting from "./pages/Setting";
 import Upload from "./pages/Files/Upload";
 import Download from "./pages/Files/Download";
 function App() {
@@ -26,7 +25,6 @@ function App() {
           <Route path="/chat" element={<Chat />} />
           <Route path="/upload" element={<Upload />} />
           <Route path="/download" element={<Download />} />
-          <Route path="/settings" element={<Setting />} />
 
           <Route path="*" element={<> not found</>} />
         </Routes>
