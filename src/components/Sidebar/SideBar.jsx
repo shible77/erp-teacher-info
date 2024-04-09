@@ -100,7 +100,7 @@ const SideBar = ({ children }) => {
       <div className="main-container">
         <motion.div
           animate={{
-            width: isOpen ? "200px" : "45px",
+            width: isOpen ? "250px" : "50px",
 
             transition: {
               duration: 0.5,
@@ -128,23 +128,6 @@ const SideBar = ({ children }) => {
             <div className="bars">
               <FaBars onClick={toggle} />
             </div>
-          </div>
-          <div className="search">
-            <div className="search_icon">
-              <BiSearch />
-            </div>
-            <AnimatePresence>
-              {isOpen && (
-                <motion.input
-                  initial="hidden"
-                  animate="show"
-                  exit="hidden"
-                  variants={inputAnimation}
-                  type="text"
-                  placeholder="Search"
-                />
-              )}
-            </AnimatePresence>
           </div>
           <section className="routes">
             {routes.map((route, index) => {
