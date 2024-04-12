@@ -15,7 +15,25 @@
 }
 
 .name {
-    color: blue;
+    color: steelblue;
     font-weight: bold;
 }
+
+.faculty-heading{
+    text-align: center;
+    color: cadetblue;
+    margin-bottom: 20px;
+}
+
+.initialContainer {
+  margin-top: 20px; /* Adjust the value as needed */
+}
+
+.card {
+  border-radius: 0; /* Set border radius to 0 */
+  width: '100%';
+  text-align: center;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Add more shadow */
+}
+
 

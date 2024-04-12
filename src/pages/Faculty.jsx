@@ -19,12 +19,17 @@ function Faculty() {
       </Row>
     );
   }
-  return rows;
+  return (
+    <div className='initialContainer'>
+      <h3 className="faculty-heading">Our Faculty Members</h3>
+      <div>{rows}</div>
+    </div>
+  );
 }
 
 const TeacherCard = ({ teacher }) => {
   return (
-    <Card style={{ width: '100%', textAlign: 'center' }}>
+    <Card>
       <div className="circular-image-container">
         <Card.Img className="circular-image" variant="top" src={sampleImage} />
       </div>
