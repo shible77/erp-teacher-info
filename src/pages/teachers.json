@@ -2,42 +2,156 @@
     {
       "name": "Dr. Mohammad Shahadat Hossain",
       "designation": "Professor",
-      "email": ""
+      "email": "hossain_ms@cu.ac.bd",
+      "photoURL": "../resource/ShahadatSir.jpg",
+      "detailsLink": "https://cu.ac.bd/public_profile/index.php?ein=3348"
     },
     {
       "name": "Md. Hanif Seddiqui",
       "designation": "Professor",
-      "email": "hanif@cu.ac.bd"
+      "email": "hanif@cu.ac.bd",
+      "photoURL": "../resource/HanifSir.jpg",
+      "detailsLink": "https://cu.ac.bd/public_profile/index.php?ein=4106"
     },
     {
       "name": "Dr. Mohammad Khairul Islam",
       "designation": "Professor",
-      "email": "mkislam@cu.ac.bd"
+      "email": "mkislam@cu.ac.bd",
+      "photoURL": "../resource/KhairulSir.jpg",
+      "detailsLink": "https://cu.ac.bd/public_profile/index.php?ein=3905"
     },
     {
       "name": "Prof. Dr. Mohammad Osiur Rahman",
       "designation": "Professor",
-      "email": "drosi@cu.ac.bd"
+      "email": "drosi@cu.ac.bd",
+      "photoURL": "../resource/OsiurSir.jpg",
+      "detailsLink": "https://cu.ac.bd/public_profile/index.php?ein=4295"
     },
     {
-      "name": "Prof. Dr. Mohammad Osiur Rahman",
+      "name": "Muhammad Anwarul Azim",
       "designation": "Professor",
-      "email": "drosi@cu.ac.bd"
+      "email": "azim [at] cu.ac.bd",
+      "photoURL": "../resource/AzimSir.jpg",
+      "detailsLink": "https://cu.ac.bd/public_profile/index.php?ein=3904"
     },
     {
-      "name": "Prof. Dr. Mohammad Osiur Rahman",
+      "name": "Dr. Mohammad Sanaullah Chowdhury",
       "designation": "Professor",
-      "email": "drosi@cu.ac.bd"
+      "email": "hanif@cu.ac.bd",
+      "photoURL": "../resource/SanaullahSir.jpg",
+      "detailsLink": "https://cu.ac.bd/public_profile/index.php?ein=4203"
     },
     {
-      "name": "Prof. Dr. Mohammad Osiur Rahman",
+      "name": "Dr. Rashed Mustafa",
       "designation": "Professor",
-      "email": "drosi@cu.ac.bd"
+      "email": "rashedDOTmATcu.ac.bd",
+      "photoURL": "../resource/RashedSir.jpg",
+      "detailsLink": "https://cu.ac.bd/public_profile/index.php?ein=4792"
     },
     {
-      "name": "Prof. Dr. Mohammad Osiur Rahman",
+      "name": "Dr. Farah Jahan",
       "designation": "Professor",
-      "email": "drosi@cu.ac.bd"
+      "email": "farah_csc@cu.ac.bd",
+      "photoURL": "../resource/FarahMaam.jpg",
+      "detailsLink": "https://cu.ac.bd/public_profile/index.php?ein=4634"
+    },
+    {
+      "name": "Dr. Kazi Ashrafuzzaman",
+      "designation": "Professor",
+      "email": "ａｓｈｒａｆ＠cu.ac.bd",
+      "photoURL": "../resource/AshrafSir.jpg",
+      "detailsLink": "https://cu.ac.bd/public_profile/index.php?ein=4297"
+    },
+    {
+      "name": "Nihad Karim Chowdhury",
+      "designation": "Professor",
+      "email": "nihad@cu.ac.bd",
+      "photoURL": "../resource/NihadSir.jpg",
+      "detailsLink": "https://cu.ac.bd/public_profile/index.php?ein=4298"
+    },
+    {
+      "name": "Dr. Iqbal Ahmed",
+      "designation": "Professor",
+      "email": "iqbal.ahmed@cu.ac.bd",
+      "photoURL": "../resource/IqbalSir.jpg",
+      "detailsLink": "https://cu.ac.bd/public_profile/index.php?ein=4635"
+    },
+    {
+      "name": "Rokan Uddin Faruqui",
+      "designation": "Associate Professor",
+      "email": "rokan@cu.ac.bd",
+      "photoURL": "../resource/RokanSir.jpg",
+      "detailsLink": "https://cu.ac.bd/public_profile/index.php?ein=4476"
+    },
+    {
+      "name": "REZAUL KARIM",
+      "designation": "Associate Professor",
+      "email": "pinnacle_of_success@yahoo.com",
+      "photoURL": "../resource/RKSir.jpg",
+      "detailsLink": "https://cu.ac.bd/public_profile/index.php?ein=4790"
+    },
+    {
+      "name": "Dr. Fahim Irfan Alam",
+      "designation": "Associate Professor",
+      "email": "",
+      "photoURL": "../resource/FahimSir.jpg",
+      "detailsLink": "https://cu.ac.bd/public_profile/index.php?ein=4632"
+    },
+    {
+      "name": "Dr. Rudra Pratap Deb Nath",
+      "designation": "Associate Professor",
+      "email": "rudra@cu.ac.bd",
+      "photoURL": "../resource/RudraSir.jpg",
+      "detailsLink": "https://cu.ac.bd/public_profile/index.php?ein=5168"
+    },
+    {
+      "name": "A. H. M. Sajedul Hoque",
+      "designation": "Assistant Professor",
+      "email": "hoque.cse@cu.ac.bd",
+      "photoURL": "../resource/SajedSir.jpg",
+      "detailsLink": "https://cu.ac.bd/public_profile/index.php?ein=5293"
+    },
+    {
+      "name": "Dr. Atiqur Rahman",
+      "designation": "Associate Professor",
+      "email": "atiqcse09[at]cu.ac.bd",
+      "photoURL": "../resource/AtiqSir.jpg",
+      "detailsLink": "https://cu.ac.bd/public_profile/index.php?ein=5292"
+    },
+    {
+      "name": "Shima Chakraborty",
+      "designation": "Assistant Professor",
+      "email": "shimacse@cu.ac.bd",
+      "photoURL": "../resource/ShimaMaam.jpg",
+      "detailsLink": "https://cu.ac.bd/public_profile/index.php?ein=5295"
+    },
+    {
+      "name": "Nasrin Sultana",
+      "designation": "Assistant Professor",
+      "email": "nasrin_cse@cu.ac.bd",
+      "photoURL": "../resource/NasrinMaam.jpg",
+      "detailsLink": "https://cu.ac.bd/public_profile/index.php?ein=5294"
+    },
+    {
+      "name": "Dr. Md. Mahbubul Islam",
+      "designation": "Associate Professor",
+      "email": "mahbubcse@cu.ac.bd",
+      "photoURL": "../resource/MahbubSir.jpg",
+      "detailsLink": "https://cu.ac.bd/public_profile/index.php?ein=5291"
+    },
+    {
+      "name": "Dr. Abu Nowshed Chy",
+      "designation": "Assistant Professor",
+      "email": "nowshed[at]cu.ac.bd",
+      "photoURL": "../resource/NowshedSir.jpg",
+      "detailsLink": "https://cu.ac.bd/public_profile/index.php?ein=5905"
+    },
+    {
+      "name": "N. M. Istiak Chowdhury",
+      "designation": "Assistant Professor",
+      "email": "istiak@cu.ac.bd",
+      "photoURL": "../resource/IstiakSir.jpg",
+      "detailsLink": "https://cu.ac.bd/public_profile/index.php?ein=5906"
     }
   ]
   
