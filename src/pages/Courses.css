@@ -1,0 +1,22 @@
+/* Courses.css */
+.container {
+    margin-top: 10%;
+    margin-left: 15%;
+}
+
+.inner-container{
+    margin-bottom: 100px;
+}
+
+.heading{
+    color: rgb(66, 123, 125);
+    margin-bottom: 20px;
+}
+
+.btn-light{
+    width: 100px;
+    background-color: rgb(234, 231, 231);
+}
+  
+
+  

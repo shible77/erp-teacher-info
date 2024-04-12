@@ -19,9 +19,9 @@ main {
 
 /* Sidebar */
 .sidebar {
-  background: rgb(0, 0, 0);
-  color: white;
-  height: 100vh;
+  background: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
+  font-weight: 600;
   overflow-y: auto;
 }
 
@@ -32,7 +32,7 @@ main {
   padding: 15px 10px;
 }
 .logo {
-  font-size: 20px;
+  font-size: 23px;
   line-height: 0;
   margin-top: 10px;
 }
@@ -51,29 +51,29 @@ main {
 }
 .link {
   display: flex;
-  color: white;
+  color: rgb(0, 0, 0);
   gap: 10px;
   padding: 5px 10px;
   border-right: 4px solid transparent;
   transition: 0.2s cubic-bezier(0.6, -0.28, 0.735, 0.045);
 }
 .link:hover {
-  border-right: 4px solid white;
-  background: rgb(45, 51, 89);
+  border-right: 4px solid rgb(0, 0, 0);
+  background: rgba(193, 197, 223, 0.908);
   transition: 0.2s cubic-bezier(0.6, -0.28, 0.735, 0.045);
 }
 .active {
-  border-right: 4px solid white;
-  background: rgb(45, 51, 89);
+  border-right: 4px solid rgb(0, 0, 0);
+  background: rgb(186, 189, 214);
 }
 .link_text {
   white-space: nowrap;
-  font-size: 15px;
+  font-size: 16px;
 }
 
 .menu {
   display: flex;
-  color: white;
+  color: rgb(0, 0, 0);
 
   padding: 5px 10px;
   border-right: 4px solid transparent;
@@ -90,5 +90,5 @@ main {
 }
 .menu_container .link {
   padding-left: 30px;
-  border-bottom: #fff 0.5px ;
+  border-bottom: #000000 0.5px ;
 }
