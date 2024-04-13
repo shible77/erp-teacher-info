@@ -1,7 +1,8 @@
 import { NavLink } from "react-router-dom";
-import { FaBars, FaHome, FaLock, FaMoneyBill, FaUser, FaBook,FaUpload ,FaDownload} from "react-icons/fa";
-import { MdMessage,MdEventBusy } from "react-icons/md";
-import { BiAnalyse, BiSearch,BiCalendarEvent } from "react-icons/bi";
+import { FaBars, FaHome, FaLock, FaMoneyBill, FaUser, FaBook,FaUpload ,FaDownload, FaClipboardCheck} from "react-icons/fa";
+import { MdMessage,MdEventBusy, MdEvent } from "react-icons/md";
+import { BiAnalyse, BiSearch,BiCalendarEvent, BiTask, BiTimeFive } from "react-icons/bi";
+import { IoSchoolOutline } from 'react-icons/io5';
 import { BiCog } from "react-icons/bi";
 import { AiFillHeart, AiTwotoneFileExclamation,AiOutlineMessage } from "react-icons/ai";
 import { BsCartCheck,BsPencil,BsFileText } from "react-icons/bs";
@@ -21,17 +22,17 @@ const routes = [
   },
   {
     name: "Upcomings",
-    icon: <AiTwotoneFileExclamation />,
+    icon: <MdEvent />,
     subRoutes: [
       {
         path: "/classes",
         name: "Classes",
-        icon: <FaUpload />,
+        icon: <IoSchoolOutline />,
       },
       {
         path: "/evaluations",
         name: "Evaluations",
-        icon: <FaDownload />,
+        icon: <BiTask />,
       },
     ],
   },
