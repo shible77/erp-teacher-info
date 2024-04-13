@@ -20,6 +20,22 @@ const routes = [
     icon: <FaBook />,
   },
   {
+    name: "Upcomings",
+    icon: <AiTwotoneFileExclamation />,
+    subRoutes: [
+      {
+        path: "/classes",
+        name: "Classes",
+        icon: <FaUpload />,
+      },
+      {
+        path: "/evaluations",
+        name: "Evaluations",
+        icon: <FaDownload />,
+      },
+    ],
+  },
+  {
     path: "/leaves",
     name: "Leaves",
     icon: <MdEventBusy />,
@@ -38,23 +54,6 @@ const routes = [
     path: "/chat",
     name: "Chat",
     icon: <AiOutlineMessage />,
-  },
-  {
-    path: "/file-manager",
-    name: "File Manager",
-    icon: <AiTwotoneFileExclamation />,
-    subRoutes: [
-      {
-        path: "/upload",
-        name: "Upload ",
-        icon: <FaUpload />,
-      },
-      {
-        path: "/download",
-        name: "Download",
-        icon: <FaDownload />,
-      },
-    ],
   },
 ];
 
