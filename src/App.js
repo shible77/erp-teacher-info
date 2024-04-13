@@ -10,8 +10,6 @@ import Leaves from "./pages/Leaves";
 import Meetings from "./pages/Meetings";
 import Editorials from "./pages/Editorials";
 import Chat from "./pages/Chat";
-import Upload from "./pages/file_page/Upload";
-import Download from "./pages/file_page/Download";
 function App() {
   return (
     <Router>
@@ -25,8 +23,6 @@ function App() {
           <Route path="/meetings" element={<Meetings />} />
           <Route path="/editorials" element={<Editorials />} />
           <Route path="/chat" element={<Chat />} />
-          <Route path="/upload" element={<Upload />} />
-          <Route path="/download" element={<Download />} />
 
           <Route path="*" element={<> not found</>} />
         </Routes>

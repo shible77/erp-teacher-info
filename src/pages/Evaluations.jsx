@@ -112,9 +112,9 @@ function Evaluations() {
               <th scope="col">Started Time</th>
               <th scope="col">Department</th>
               <th scope="col">Semester</th>
-              <th scope="col">Evaluation Type</th>
+              <th scope="col">Evaluation</th>
               <th scope="col">Room No.</th>
-              <th scope="col">Action to Change</th>
+              <th scope="col">Action Change</th>
             </tr>
           </thead>
           <tbody>
