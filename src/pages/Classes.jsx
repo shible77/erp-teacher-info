@@ -109,7 +109,7 @@ function Classes() {
               <th scope="col">#</th>
               <th scope="col">Course Name</th>
               <th scope="col">Day of Week</th>
-              <th scope="col">Started Time</th>
+              <th scope="col">Start Time</th>
               <th scope="col">Department</th>
               <th scope="col">Semester</th>
               <th scope="col">Class No.</th>

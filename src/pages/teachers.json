@@ -7,11 +7,11 @@
       "detailsLink": "https://cu.ac.bd/public_profile/index.php?ein=3348"
     },
     {
-      "name": "Md. Hanif Seddiqui",
+      "name": "Dr. Mohammad Sanaullah Chowdhury",
       "designation": "Professor",
       "email": "hanif@cu.ac.bd",
-      "photoURL": "../resource/HanifSir.jpg",
-      "detailsLink": "https://cu.ac.bd/public_profile/index.php?ein=4106"
+      "photoURL": "../resource/SanaullahSir.jpg",
+      "detailsLink": "https://cu.ac.bd/public_profile/index.php?ein=4203"
     },
     {
       "name": "Dr. Mohammad Khairul Islam",
@@ -28,18 +28,18 @@
       "detailsLink": "https://cu.ac.bd/public_profile/index.php?ein=4295"
     },
     {
+      "name": "Md. Hanif Seddiqui",
+      "designation": "Professor",
+      "email": "hanif@cu.ac.bd",
+      "photoURL": "../resource/HanifSir.jpg",
+      "detailsLink": "https://cu.ac.bd/public_profile/index.php?ein=4106"
+    },
+    {
       "name": "Muhammad Anwarul Azim",
       "designation": "Professor",
       "email": "azim [at] cu.ac.bd",
       "photoURL": "../resource/AzimSir.jpg",
       "detailsLink": "https://cu.ac.bd/public_profile/index.php?ein=3904"
-    },
-    {
-      "name": "Dr. Mohammad Sanaullah Chowdhury",
-      "designation": "Professor",
-      "email": "hanif@cu.ac.bd",
-      "photoURL": "../resource/SanaullahSir.jpg",
-      "detailsLink": "https://cu.ac.bd/public_profile/index.php?ein=4203"
     },
     {
       "name": "Dr. Rashed Mustafa",
@@ -93,7 +93,7 @@
     {
       "name": "Dr. Fahim Irfan Alam",
       "designation": "Associate Professor",
-      "email": "",
+      "email": "fahim@cu.ac.bd",
       "photoURL": "../resource/FahimSir.jpg",
       "detailsLink": "https://cu.ac.bd/public_profile/index.php?ein=4632"
     },
