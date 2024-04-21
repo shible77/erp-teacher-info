@@ -1,0 +1,199 @@
+/* Header.css */
+.continer{
+    background-color: #d8d8d8;
+    display: flex;
+  flex-direction: column; /* Stack child elements vertically */
+}
+.header {
+    background-color: #741f1f; /* Background color */
+    color: #fff; /* Text color */
+    padding: 15px; /* Padding */
+    text-align: center; /* Center text */
+    width: 99vw; /* Full width of the viewport */
+    display: flex; /* Flex display */
+    justify-content: space-between; /* Space between items */
+    align-items: baseline; /* Align items based on baseline */
+}
+
+.unilogo {
+    font-weight:400; /* Bold font */
+    font-size: 30px; /* Font size */
+    margin-left: 150px;
+}
+
+.header-text {
+    text-transform: uppercase; /* Uppercase text */
+    font-size: 25px; /* Font size */
+    margin-right: 50px;
+    font-weight:350; /* Bold font */
+}
+
+.separator {
+    width: 1px; /* Width of the separator */
+    height: 23px; /* Height of the separator */
+    background-color: #fff; /* Color of the separator */
+    margin: 0 10px; /* Margin to separate logo and text */
+  }
+
+  .left-container {
+    display: flex;
+    align-items: center;
+  }
+  
+
+  .search-container {
+    position: absolute; /* Position absolute */
+    left: 50%; /* Move container to the horizontal center */
+    transform: translateX(-50%); /* Move container back by half of its width */
+    display: flex; /* Flex display */
+    align-items: center; /* Center items vertically */
+    margin-top: 5px;
+}
+  
+  .search-input {
+    width: 380px; /* Set the width of the input field */
+    padding: 5px; /* Padding */
+    font-size: 16px; /* Font size */
+    border-radius: 50px;
+  }
+  
+  .search-button {
+    position: absolute; /* Position absolute */
+    right: 10px; /* Set distance from the right */
+    border: none; /* Remove border */
+    background-color: transparent; /* Transparent background */
+    cursor: pointer; /* Add cursor pointer */
+  }
+
+  .search-icon {
+    font-size: 20px; /* Increase the font size to increase icon size */
+    font-weight: bold; 
+    color: #5b5555;
+  }
+
+  .edit-profile {
+    margin-left: auto; /* Aligns the edit profile section to the right */
+  }
+  
+  .edit-profile-link {
+    color: #fff; /* Text color */
+    text-decoration: none; /* Remove underline */
+    padding: 0 10px; /* Add padding to make it clickable */
+    font-weight: bold;
+    margin-right: 150px;
+  }
+
+  .blur-background {
+    background-image: url("../resource/banner.jpg"); /* Specify the path to your background image */
+    background-size: cover; /* Cover the entire division with the background image */
+    background-position: center; /* Center the background image */
+    width: 100%; /* Full width */
+    height: 250px; /* Set the height of the division */
+    display: flex;
+  }
+
+  .blur-background img {
+    height: 150px;
+    width: 150px;
+    margin-left: 167px;
+    margin-top: 50px;
+  }
+
+  .info-container {
+    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 16px;
+  }
+  
+  .teacherName,
+  .designation,
+  .email {
+    margin-bottom: 10px;
+    color: #fff;
+  }
+
+  .teacherName{
+    font-size: 30px;
+    font-weight:500;
+  }
+
+  .content-container {
+    margin-left: 167px;
+    margin-right: 167px;
+    width: calc(100% - 334px); /* Calculate the width excluding left and right margins */
+    margin-top: 35px;
+    background-color: white;
+  }
+  
+  .button-container {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .content-button {
+    flex-basis: 20%; /* Set the width of each button to 25% */
+    border: 1.5px solid #d8d8d8; /* Set the border to a solid line with a color */
+    height: 40px;
+    font-size: 15px;
+    font-weight: 700;
+    color:rgb(102, 102, 102);
+  }
+
+  .active {
+    color: rgb(75, 75, 75); /* Change the font color when active */
+    background-color: white;
+    border: 0px solid #6e6e6e; /* Set the border to a solid line with a color */
+  }
+  
+  .main-content {
+    margin-top: 40px;
+    margin-left: 20px;
+  }
+
+  .section-heading {
+    font-size: 25px;
+    font-weight: 500;
+    margin-bottom: 5px;
+    color: #741f1f;
+  }
+  
+  .underline {
+    width: 33px; /* Adjust as needed */
+    height: 3px;
+    background-color: #741f1f; /* Adjust color as needed */
+    margin-bottom: 15px;
+  }
+
+  .bio-paragraph {
+    font-size: 15px; /* Adjust font size as needed */
+    line-height: 1.5; /* Adjust line height as needed */
+    color: #333; /* Adjust color as needed */
+  }
+  
+  .sub-content{
+    display: flex;
+    flex-direction: column;
+  }
+
+  .subsub-content{
+    margin-bottom: 20px;
+  }
+  
+  .education-list li {
+    line-height: 1.7; /* Adjust line height as needed */
+    font-size: 15px; /* Adjust font size as needed */
+  }
+
+  .bullet-icon {
+    font-size: 5px; /* Adjust the size as needed */
+    color: #afafaf;
+    margin-right: 10px;
+  }
+  
+  .project-heading{
+    color: rgb(0, 83, 128);
+    text-decoration: none;
+  }
+  

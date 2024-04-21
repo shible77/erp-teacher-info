@@ -2,6 +2,8 @@ import "./App.css";
 import SideBar from "./components/sidebar/SideBar";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
+import Dashboard from "./pages/Dashboard";
+import Profile from "./pages/Profile";
 import Faculty from "./pages/Faculty";
 import Courses from "./pages/Courses";
 import Classes from "./pages/Classes";
@@ -15,7 +17,8 @@ function App() {
     <Router>
       <SideBar>
         <Routes>
-          <Route path="/" element={<Faculty />} />
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/faculty" element={<Faculty />} />
           <Route path="/courses" element={<Courses />} />
           <Route path="/classes" element={<Classes />} />
           <Route path="/evaluations" element={<Evaluations />} />
@@ -23,6 +26,7 @@ function App() {
           <Route path="/meetings" element={<Meetings />} />
           <Route path="/editorials" element={<Editorials />} />
           <Route path="/chat" element={<Chat />} />
+          <Route path="/profile" element={<Profile />} />
 
           <Route path="*" element={<> not found</>} />
         </Routes>

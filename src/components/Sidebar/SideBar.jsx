@@ -3,7 +3,7 @@ import { FaBars, FaHome, FaLock, FaMoneyBill, FaUser, FaBook,FaUpload ,FaDownloa
 import { MdMessage,MdEventBusy, MdEvent } from "react-icons/md";
 import { BiAnalyse, BiSearch,BiCalendarEvent, BiTask, BiTimeFive } from "react-icons/bi";
 import { IoSchoolOutline } from 'react-icons/io5';
-import { BiCog } from "react-icons/bi";
+import { RiDashboardFill } from 'react-icons/ri';
 import { AiFillHeart, AiTwotoneFileExclamation,AiOutlineMessage } from "react-icons/ai";
 import { BsCartCheck,BsPencil,BsFileText } from "react-icons/bs";
 import { useState } from "react";
@@ -12,7 +12,12 @@ import SidebarMenu from "./SidebarMenu";
 const routes = [
   {
     path: "/",
-    name: "Faculty",
+    name: "Dashboard",
+    icon: <RiDashboardFill />,
+  },
+  {
+    path: "/profile",
+    name: "Profile",
     icon: <FaUser />,
   },
   {
@@ -56,6 +61,7 @@ const routes = [
     name: "Chat",
     icon: <AiOutlineMessage />,
   },
+  
 ];
 
 const SideBar = ({ children }) => {
@@ -100,7 +106,7 @@ const SideBar = ({ children }) => {
       <div className="main-container">
         <motion.div
           animate={{
-            width: isOpen ? "250px" : "45px",
+            width: isOpen ? "200px" : "40px",
 
             transition: {
               duration: 0.5,
