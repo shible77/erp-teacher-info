@@ -1,5 +1,5 @@
 import React from "react";
-import "./CoursesUpcomings.css"; // Import CSS file for styling
+import "../css/CoursesUpcomings.css"; // Import CSS file for styling
 
 function Evaluations() {
   return (

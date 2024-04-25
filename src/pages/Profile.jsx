@@ -1,10 +1,21 @@
 import React, { useState } from "react";
-import "./Profile.css"; // Import CSS file for styling
+import "../css/Profile.css"; // Import CSS file for styling
 import { FaSearch } from "react-icons/fa"; // Import the search icon
 import { FaSquare } from "react-icons/fa";
 import TeacherImage from "../resource/RudraSir.jpg";
+import Box from "@mui/material/Box";
+import Modal from "@mui/material/Modal";
+import ChildModal from "../modal/ChildModal"; // Import ChildModal component
+
 function Profile() {
   const [activeContent, setActiveContent] = useState("bio");
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const handleButtonClick = (content) => {
     setActiveContent(content);
@@ -42,7 +53,7 @@ function Profile() {
               <ul className="education-list">
                 <li>
                   <FaSquare className="bullet-icon" />
-                  PhD, Aalborg Univesity, Denmark, Computer Science (2015-2020)
+                  PhD, Aalborg University, Denmark, Computer Science (2015-2020)
                 </li>
                 <li>
                   <FaSquare className="bullet-icon" />
@@ -101,16 +112,16 @@ function Profile() {
                 <li>
                   <FaSquare className="bullet-icon" />
                   Assistant Director, ICT Cell, University of Chittagong,
-                  Chittagong, Bangladesh (2020-2022)
+                  Bangladesh (2020-2022)
                 </li>
                 <li>
                   <FaSquare className="bullet-icon" />
                   Member, Research and Publication Cell, University of
-                  Chittagong, Chittagong, Bangladesh (2022-Present)
+                  Chittagong, Bangladesh (2022-Present)
                 </li>
                 <li>
                   <FaSquare className="bullet-icon" />
-                  Member, Innovation team, University of Chittagong, Chittagong,
+                  Member, Innovation team, University of Chittagong,
                   Bangladesh (2021-2023)
                 </li>
               </ul>
@@ -121,15 +132,18 @@ function Profile() {
               <ul className="education-list">
                 <li>
                   <FaSquare className="bullet-icon" />
-                  Secretary, Fellow Foundation, University of Chittagong (Feb 2016 - Present)
+                  Secretary, Fellow Foundation, University of Chittagong (Feb
+                  2016 - Present)
                 </li>
                 <li>
                   <FaSquare className="bullet-icon" />
-                  Chief Advisor, Vaccine Care, Mehedibag, Chittagong (Feb 2018 - Present)
+                  Chief Advisor, Vaccine Care, Mehedibag, Chittagong (Feb 2018 -
+                  Present)
                 </li>
                 <li>
                   <FaSquare className="bullet-icon" />
-                  Elected Member, Chittagong University Teachers Association (CUTA), University of Chittagong (Dec 2018 - Dec 2019)
+                  Elected Member, Chittagong University Teachers Association
+                  (CUTA), University of Chittagong (Dec 2018 - Dec 2019)
                 </li>
               </ul>
             </div>
@@ -284,7 +298,7 @@ function Profile() {
             </div>
           </div>
         );
-        case "teaching":
+      case "teaching":
         return (
           <div className="sub-content">
             <div className="subsub-content">
@@ -572,9 +586,22 @@ function Profile() {
           </button>
         </div>
         <div className="edit-profile">
-          <a href="#" className="edit-profile-link">
+          <a href="/" className="dashboard_profile_page">
+            DASHBOARD
+          </a>
+          <a href="#" className="edit-profile-link" onClick={handleOpen}>
             EDIT MY PROFILE
           </a>
+          <Modal
+            open={open}
+            onClose={handleClose}
+          >
+            <Box className="parent_modal-container">
+            <h2 className="parent_modal-heading">Update Your Profile Information</h2>
+            <p className="parent_modal-description">We kindly request you to enter a link below to edit the information.</p>
+              <ChildModal />
+            </Box>
+          </Modal>
         </div>
       </div>
       <div className="blur-background">

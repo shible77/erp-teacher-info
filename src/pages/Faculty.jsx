@@ -3,7 +3,7 @@ import React from 'react';
 import { Button, Card, Row, Col } from 'react-bootstrap';
 import teachersData from './teachers.json'; // Import the JSON file
 import "bootstrap/dist/css/bootstrap.min.css";
-import './Faculty.css'; // Import CSS file for styling
+import '../css/Faculty.css'; // Import CSS file for styling
 import sampleImage from '../resource/sample.jpg';
 
 function Faculty() {

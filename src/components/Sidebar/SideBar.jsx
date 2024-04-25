@@ -1,11 +1,11 @@
 import { NavLink } from "react-router-dom";
-import { FaBars, FaHome, FaLock, FaMoneyBill, FaUser, FaBook,FaUpload ,FaDownload, FaClipboardCheck} from "react-icons/fa";
-import { MdMessage,MdEventBusy, MdEvent } from "react-icons/md";
-import { BiAnalyse, BiSearch,BiCalendarEvent, BiTask, BiTimeFive } from "react-icons/bi";
+import { FaBars, FaUser, FaBook } from "react-icons/fa";
+import { MdEventBusy, MdEvent } from "react-icons/md";
+import { BiCalendarEvent, BiTask } from "react-icons/bi";
 import { IoSchoolOutline } from 'react-icons/io5';
 import { RiDashboardFill } from 'react-icons/ri';
-import { AiFillHeart, AiTwotoneFileExclamation,AiOutlineMessage } from "react-icons/ai";
-import { BsCartCheck,BsPencil,BsFileText } from "react-icons/bs";
+import { AiOutlineMessage } from "react-icons/ai";
+import { BsFileText } from "react-icons/bs";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import SidebarMenu from "./SidebarMenu";
@@ -67,22 +67,6 @@ const routes = [
 const SideBar = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
-  const inputAnimation = {
-    hidden: {
-      width: 0,
-      padding: 0,
-      transition: {
-        duration: 0.2,
-      },
-    },
-    show: {
-      width: "140px",
-      padding: "5px 15px",
-      transition: {
-        duration: 0.2,
-      },
-    },
-  };
 
   const showAnimation = {
     hidden: {
