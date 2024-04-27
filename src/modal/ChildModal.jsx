@@ -275,7 +275,7 @@ function ChildModal() {
                   />
                 </div>
               ))}
-              <div className="button-container">
+              <div className="modal_button-container">
                 <Button
                   className="modal-button"
                   onClick={() => handleSubmit(index)}

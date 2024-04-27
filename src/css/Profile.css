@@ -274,7 +274,7 @@
   border-radius: 4px;
 }
 
-.button-container {
+.modal_button-container {
   display: flex;
   justify-content: flex-end;
   margin-top: 20px; /* Adjust margin as needed */
