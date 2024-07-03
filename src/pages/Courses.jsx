@@ -26,21 +26,13 @@ function Courses() {
               <label htmlFor="startDate" className="form-label">
                 Started Date
               </label>
-              <input
-                type="date"
-                className="form-control"
-                id="startDate"
-              />
+              <input type="date" className="form-control" id="startDate" />
             </div>
             <div className="col">
               <label htmlFor="endDate" className="form-label">
                 Ended Date
               </label>
-              <input
-                type="date"
-                className="form-control"
-                id="endDate"
-              />
+              <input type="date" className="form-control" id="endDate" />
             </div>
           </div>
           <div className="mb-3 row">
@@ -124,12 +116,13 @@ function Courses() {
             <tr>
               <th scope="col">#</th>
               <th scope="col">Course Name</th>
-              <th scope="col">Course Started Date</th>
-              <th scope="col">Course End Date</th>
+              <th scope="col">Started Date</th>
+              <th scope="col">End Date</th>
               <th scope="col">Department Name</th>
               <th scope="col">Semester</th>
               <th scope="col">Total Classes</th>
               <th scope="col">Room No.</th>
+              <th scope="col">Action to Change</th>
             </tr>
           </thead>
           <tbody>
@@ -142,6 +135,14 @@ function Courses() {
               <td>1st</td>
               <td>40</td>
               <td>311</td>
+              <td>
+                <button type="button" class="btn btn btn-secondary btn-sm">
+                  Reschedule
+                </button>
+                <button type="button" class="btn btn-danger btn-sm">
+                  Cancel
+                </button>
+              </td>
             </tr>
             <tr>
               <th scope="row">2</th>
@@ -152,6 +153,14 @@ function Courses() {
               <td>2nd</td>
               <td>30</td>
               <td>311</td>
+              <td>
+                <button type="button" class="btn btn btn-secondary btn-sm">
+                  Reschedule
+                </button>
+                <button type="button" class="btn btn-danger btn-sm">
+                  Cancel
+                </button>
+              </td>
             </tr>
             <tr>
               <th scope="row">3</th>
@@ -162,6 +171,14 @@ function Courses() {
               <td>3nd</td>
               <td>45</td>
               <td>312</td>
+              <td>
+                <button type="button" class="btn btn btn-secondary btn-sm">
+                  Reschedule
+                </button>
+                <button type="button" class="btn btn-danger btn-sm">
+                  Cancel
+                </button>
+              </td>
             </tr>
             <tr>
               <th scope="row">4</th>
@@ -172,6 +189,14 @@ function Courses() {
               <td>4th</td>
               <td>35</td>
               <td>312</td>
+              <td>
+                <button type="button" class="btn btn btn-secondary btn-sm">
+                  Reschedule
+                </button>
+                <button type="button" class="btn btn-danger btn-sm">
+                  Cancel
+                </button>
+              </td>
             </tr>
             <tr>
               <th scope="row">5</th>
@@ -182,6 +207,14 @@ function Courses() {
               <td>5th</td>
               <td>50</td>
               <td>313</td>
+              <td>
+                <button type="button" class="btn btn btn-secondary btn-sm">
+                  Reschedule
+                </button>
+                <button type="button" class="btn btn-danger btn-sm">
+                  Cancel
+                </button>
+              </td>
             </tr>
             <tr>
               <th scope="row">6</th>
@@ -192,6 +225,14 @@ function Courses() {
               <td>6th</td>
               <td>38</td>
               <td>313</td>
+              <td>
+                <button type="button" class="btn btn btn-secondary btn-sm">
+                  Reschedule
+                </button>
+                <button type="button" class="btn btn-danger btn-sm">
+                  Cancel
+                </button>
+              </td>
             </tr>
             <tr>
               <th scope="row">7</th>
@@ -202,6 +243,14 @@ function Courses() {
               <td>7th</td>
               <td>42</td>
               <td>314</td>
+              <td>
+                <button type="button" class="btn btn btn-secondary btn-sm">
+                  Reschedule
+                </button>
+                <button type="button" class="btn btn-danger btn-sm">
+                  Cancel
+                </button>
+              </td>
             </tr>
             <tr>
               <th scope="row">8</th>
@@ -212,6 +261,14 @@ function Courses() {
               <td>8th</td>
               <td>47</td>
               <td>314</td>
+              <td>
+                <button type="button" class="btn btn btn-secondary btn-sm">
+                  Reschedule
+                </button>
+                <button type="button" class="btn btn-danger btn-sm">
+                  Cancel
+                </button>
+              </td>
             </tr>
           </tbody>
         </table>

@@ -2,23 +2,19 @@ import { NavLink } from "react-router-dom";
 import { FaBars, FaUser, FaBook } from "react-icons/fa";
 import { MdEventBusy, MdEvent } from "react-icons/md";
 import { BiCalendarEvent, BiTask } from "react-icons/bi";
-import { IoSchoolOutline } from 'react-icons/io5';
-import { RiDashboardFill } from 'react-icons/ri';
+import { IoSchoolOutline } from "react-icons/io5";
+import { RiDashboardFill } from "react-icons/ri";
 import { AiOutlineMessage } from "react-icons/ai";
 import { BsFileText } from "react-icons/bs";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import SidebarMenu from "./SidebarMenu";
+
 const routes = [
   {
     path: "/",
     name: "Dashboard",
     icon: <RiDashboardFill />,
-  },
-  {
-    path: "/profile",
-    name: "Profile",
-    icon: <FaUser />,
   },
   {
     path: "/courses",
@@ -42,30 +38,14 @@ const routes = [
     ],
   },
   {
-    path: "/leaves",
-    name: "Leaves",
-    icon: <MdEventBusy />,
+    path: "/profile",
+    name: "Profile",
+    icon: <FaUser />,
   },
-  {
-    path: "/meetings",
-    name: "Meetings",
-    icon: <BiCalendarEvent />,
-  },
-  {
-    path: "/editorials",
-    name: "Editorials",
-    icon: <BsFileText />,
-  },
-  {
-    path: "/chat",
-    name: "Chat",
-    icon: <AiOutlineMessage />,
-  },
-  
 ];
 
 const SideBar = ({ children }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
   const toggle = () => setIsOpen(!isOpen);
 
   const showAnimation = {
@@ -86,82 +66,81 @@ const SideBar = ({ children }) => {
   };
 
   return (
-    <>
-      <div className="main-container">
-        <motion.div
-          animate={{
-            width: isOpen ? "200px" : "40px",
+    <div className="main-container">
+      <motion.div
+        animate={{
+          width: isOpen ? "16%" : "5%",
 
-            transition: {
-              duration: 0.5,
-              type: "spring",
-              damping: 10,
-            },
-          }}
-          className={`sidebar `}
-        >
-          <div className="top_section">
-            <AnimatePresence>
-              {isOpen && (
-                <motion.h1
-                  variants={showAnimation}
-                  initial="hidden"
-                  animate="show"
-                  exit="hidden"
-                  className="logo"
-                >
-                  TeachersIMS
-                </motion.h1>
-              )}
-            </AnimatePresence>
+          transition: {
+            duration: 0.5,
+            type: "spring",
+            damping: 10,
+          },
+        }}
+        className={`sidebar `}
+      >
+        <div className="top_section">
+          <AnimatePresence>
+            {isOpen && (
+              <motion.h1
+                variants={showAnimation}
+                initial="hidden"
+                animate="show"
+                exit="hidden"
+                className="logo"
+              >
+                TeachersIMS
+              </motion.h1>
+            )}
+          </AnimatePresence>
 
-            <div className="bars">
-              <FaBars onClick={toggle} />
-            </div>
+          <div className="bars">
+            <FaBars onClick={toggle} />
           </div>
-          <section className="routes">
-            {routes.map((route, index) => {
-              if (route.subRoutes) {
-                return (
-                  <SidebarMenu
-                    setIsOpen={setIsOpen}
-                    route={route}
-                    showAnimation={showAnimation}
-                    isOpen={isOpen}
-                  />
-                );
-              }
-
+        </div>
+        <section className="routes">
+          {routes.map((route, index) => {
+            if (route.subRoutes) {
               return (
-                <NavLink
-                  to={route.path}
+                <SidebarMenu
+                  setIsOpen={setIsOpen}
+                  route={route}
+                  showAnimation={showAnimation}
+                  isOpen={isOpen}
                   key={index}
-                  className="link"
-                  activeClassName="active"
-                >
-                  <div className="icon">{route.icon}</div>
-                  <AnimatePresence>
-                    {isOpen && (
-                      <motion.div
-                        variants={showAnimation}
-                        initial="hidden"
-                        animate="show"
-                        exit="hidden"
-                        className="link_text"
-                      >
-                        {route.name}
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </NavLink>
+                />
               );
-            })}
-          </section>
-        </motion.div>
+            }
 
-        <main>{children}</main>
-      </div>
-    </>
+            return (
+              <NavLink
+                to={route.path}
+                key={index}
+                className="link"
+                activeClassName="active"
+              >
+                <div className="icon">{route.icon}</div>
+                <AnimatePresence>
+                  {isOpen && (
+                    <motion.div
+                      variants={showAnimation}
+                      initial="hidden"
+                      animate="show"
+                      exit="hidden"
+                      className="link_text"
+                    >
+                      {route.name}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </NavLink>
+            );
+          })}
+        </section>
+      </motion.div>
+
+      <main style={{ width: isOpen ? "80%" : "90%" }}>{children}</main>
+    </div>
   );
 };
 

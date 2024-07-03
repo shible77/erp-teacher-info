@@ -3,85 +3,118 @@
     background-color: #d8d8d8;
     display: flex;
   flex-direction: column; /* Stack child elements vertically */
+  margin-left: 15px;
 }
 .header {
-    background-color: #741f1f; /* Background color */
-    color: #fff; /* Text color */
-    padding: 15px; /* Padding */
-    text-align: center; /* Center text */
-    width: 99vw; /* Full width of the viewport */
-    display: flex; /* Flex display */
-    justify-content: space-between; /* Space between items */
-    align-items: baseline; /* Align items based on baseline */
+  background-color: #741f1f;
+  color: #fff;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .unilogo {
-    font-weight:400; /* Bold font */
-    font-size: 30px; /* Font size */
-    margin-left: 150px;
+  font-weight: 400;
+  font-size: 30px;
+  margin-left: 20px;
 }
 
 .header-text {
-    text-transform: uppercase; /* Uppercase text */
-    font-size: 25px; /* Font size */
-    margin-right: 50px;
-    font-weight:350; /* Bold font */
+  text-transform: uppercase;
+  font-size: 25px;
+  margin-right: 20px;
+  font-weight: 350;
 }
 
 .separator {
-    width: 1px; /* Width of the separator */
-    height: 23px; /* Height of the separator */
-    background-color: #fff; /* Color of the separator */
-    margin: 0 10px; /* Margin to separate logo and text */
-  }
-
-  .left-container {
-    display: flex;
-    align-items: center;
-  }
-  
-
-  .search-container {
-    position: absolute; /* Position absolute */
-    left: 50%; /* Move container to the horizontal center */
-    transform: translateX(-50%); /* Move container back by half of its width */
-    display: flex; /* Flex display */
-    align-items: center; /* Center items vertically */
-    margin-top: 5px;
+  width: 1px;
+  height: 23px;
+  background-color: #fff;
+  margin: 0 10px;
 }
-  
+
+.left-container {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  flex-grow: 1;
+  justify-content: center;
+  position: relative; /* Relative position for container */
+  margin-left: 200px;
+  margin-right: 200px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px 40px 10px 20px; /* Add padding for the icon */
+  font-size: 16px;
+  border-radius: 50px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+.search-icon {
+  position: absolute;
+  right: 20px; /* Adjust based on padding */
+  top: 50%;
+  transform: translateY(-50%);
+  color: #5b5555;
+}
+
+.edit-profile {
+  margin-left: auto;
+  margin-right: 20px;
+}
+
+.edit-profile-link {
+  color: #fff;
+  text-decoration: none;
+  padding: 0 10px;
+  font-weight: bold;
+}
+
+/* Media Queries for Responsive Design */
+@media (max-width: 768px) {
+  .unilogo, .header-text, .edit-profile {
+    font-size: 18px;
+    margin: 5px 0;
+  }
+  .search-container {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+    margin: 10px 0;
+  }
   .search-input {
-    width: 380px; /* Set the width of the input field */
-    padding: 5px; /* Padding */
-    font-size: 16px; /* Font size */
-    border-radius: 50px;
+    width: 90%;
   }
-  
-  .search-button {
-    position: absolute; /* Position absolute */
-    right: 10px; /* Set distance from the right */
-    border: none; /* Remove border */
-    background-color: transparent; /* Transparent background */
-    cursor: pointer; /* Add cursor pointer */
-  }
-
-  .search-icon {
-    font-size: 20px; /* Increase the font size to increase icon size */
-    font-weight: bold; 
-    color: #5b5555;
-  }
-
   .edit-profile {
-    margin-left: auto; /* Aligns the edit profile section to the right */
+    order: 2;
+    margin-right: 0;
   }
-  
-  .edit-profile-link {
-    color: #fff; /* Text color */
-    text-decoration: none; /* Remove underline */
-    padding: 0 10px; /* Add padding to make it clickable */
-    font-weight: bold;
-    margin-right: 150px;
+}
+
+@media (max-width: 480px) {
+  .unilogo, .header-text, .edit-profile {
+    font-size: 16px;
+    margin: 5px 0;
   }
+  .search-input {
+    width: 100%;
+  }
+}
+
+
 
   .dashboard_profile_page{
     color: #fff; /* Text color */
@@ -103,7 +136,7 @@
   .blur-background img {
     height: 150px;
     width: 150px;
-    margin-left: 167px;
+    margin-left: 100px;
     margin-top: 50px;
   }
 
@@ -128,9 +161,9 @@
   }
 
   .content-container {
-    margin-left: 167px;
-    margin-right: 167px;
-    width: calc(100% - 334px); /* Calculate the width excluding left and right margins */
+    margin-left: 100px;
+    margin-right: 100px;
+    width: calc(100% - 200px); /* Calculate the width excluding left and right margins */
     margin-top: 35px;
     background-color: white;
   }

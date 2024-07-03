@@ -586,9 +586,6 @@ function Profile() {
           </button>
         </div>
         <div className="edit-profile">
-          <a href="/" className="dashboard_profile_page">
-            DASHBOARD
-          </a>
           <a href="#" className="edit-profile-link" onClick={handleOpen}>
             EDIT MY PROFILE
           </a>

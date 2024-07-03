@@ -8,7 +8,7 @@
   display: flex;
 }
 main {
-  padding: 10px;
+  padding: 13px;
 }
 
 .title {
@@ -23,6 +23,7 @@ main {
   color: rgb(0, 0, 0);
   font-weight: 600;
   overflow-y: auto;
+  font-size: 25px;
 }
 
 .top_section {
@@ -32,19 +33,19 @@ main {
   padding: 15px 10px;
 }
 .logo {
-  font-size: 23px;
+  font-size: 30px;
   line-height: 0;
   margin-top: 10px;
 }
 .bars {
-  width: 10px;
+  width: 30px;
 }
 .hide {
   display: none;
 }
 
 .routes {
-  margin-top: 15px;
+  margin-top: 20px;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -67,8 +68,9 @@ main {
   background: rgb(186, 189, 214);
 }
 .link_text {
+  margin-top: 6px;
   white-space: nowrap;
-  font-size: 16px;
+  font-size: 18px;
 }
 
 .menu {
