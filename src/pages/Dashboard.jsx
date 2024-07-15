@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 
+
+
 const Dashboard = () => {
+  
   const [record, setRecord] = useState([]);
   const [upcoming, setUpcoming] = useState({
     classes: [],
@@ -23,7 +26,6 @@ const Dashboard = () => {
         console.error("Error fetching data:", error);
       }
     };
-
     const fetchUpcoming = async () => {
       // Sample data for upcoming items
       const upcomingData = {
@@ -54,6 +56,8 @@ const Dashboard = () => {
     fetchData();
     fetchUpcoming();
   }, []);
+
+  
 
   return (
     <div className="col main ml-15 mt-2">

@@ -5,27 +5,25 @@ import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
 import EditIcon from "@mui/icons-material/Edit";
 import LargeIconButton from "../button/LargeIconButton"; // Import ChildModal component
+import axios from 'axios'
 
-function ChildModal() {
+
+function ChildModal({ session_token, teacher_id, user_id }) {
   const [openModals, setOpenModals] = useState(Array(18).fill(false));
   const [formData, setFormData] = useState(Array(18).fill({}));
+  
 
   const modalContent = [
-    {
-      title: "Bio",
-      heading:
-        "Tell Us About Yourself: Your Professional Journey, Achievements, and Interests",
-      fields: [{ label: "description", type: "text" }],
-    },
+   
     {
       title: "Education",
       heading: "Share Your Educational Journey and Academic Achievements",
       fields: [
-        { label: "degree", type: "text" },
-        { label: "institution", type: "text" },
-        { label: "country", type: "text" },
-        { label: "field", type: "text" },
-        { label: "duration", type: "text" },
+        { label: "education_title", type: "text" },
+        { label: "education_institution", type: "text" },
+        { label: "education_from_year", type: "text" },
+        { label: "education_to_year", type: "text" },
+        { label: "education_country", type: "text" },
       ],
     },
     {
@@ -33,47 +31,21 @@ function ChildModal() {
       heading:
         "Tell Us About Your Professional Experience and Career Highlights",
       fields: [
-        { label: "designation", type: "text" },
-        { label: "department", type: "text" },
-        { label: "institution", type: "text" },
-        { label: "country", type: "text" },
-        { label: "duration", type: "text" },
-        { label: "additional_info", type: "text" },
+        { label: "professional_experience_title", type: "text" },
+        { label: "professional_experience_institution", type: "text" },
+        { label: "professional_experience_year", type: "text" },
+        { label: "professional_experience_country", type: "text" },
+        { label: "professional_experience_description", type: "text" },
       ],
     },
     {
       title: "Administrative Experience",
       heading: "Share Your Administrative Experience and Leadership Roles",
       fields: [
-        { label: "position", type: "text" },
-        { label: "department", type: "text" },
-        { label: "institution", type: "text" },
-        { label: "country", type: "text" },
-        { label: "duration", type: "text" },
-        { label: "additional_info", type: "text" },
-      ],
-    },
-    {
-      title: "Experience on Social Welfare",
-      heading:
-        "Share Your Contributions to Social Welfare and Community Development",
-      fields: [
-        { label: "role", type: "text" },
-        { label: "organization_name", type: "text" },
-        { label: "institution_name", type: "text" },
-        { label: "duration", type: "text" },
-        { label: "activity", type: "text" },
-        { label: "additional_info", type: "text" },
-      ],
-    },
-    {
-      title: "Areas of Interest",
-      heading: "Tell Us About Your Areas of Interest and Expertise",
-      fields: [
-        { label: "area_of_interest", type: "text" },
-        { label: "field", type: "text" },
-        { label: "activity", type: "text" },
-        { label: "additional_info", type: "text" },
+        { label: "administrative_experinece_title", type: "text" },
+        { label: "administrative_experinece_institution", type: "text" },
+        { label: "administrative_experinece_year", type: "text" },
+        { label: "administrative_experinece_description", type: "text" },
       ],
     },
     {
@@ -81,136 +53,63 @@ function ChildModal() {
       heading:
         "Please Provide Details of Your Honors, Awards, and Recognitions",
       fields: [
-        { label: "award_name", type: "text" },
-        { label: "event_name", type: "text" },
-        { label: "year", type: "text" },
-        { label: "organization", type: "text" },
-        { label: "category", type: "text" },
-        { label: "additional_info", type: "text" },
+        { label: "award_title", type: "text" },
+        { label: "award_institution", type: "text" },
+        { label: "award_year", type: "text" },
+        { label: "award_country", type: "text" },
       ],
     },
     {
       title: "Scholarships & Fellowships",
       heading: "Share Your Academic Achievements and Recognitions",
       fields: [
-        { label: "scholarship_name", type: "text" },
-        { label: "provider", type: "text" },
-        { label: "duration", type: "text" },
-        { label: "additional_info", type: "text" },
-      ],
-    },
-    {
-      title: "Professional Responsibilities",
-      heading: "Outline Your Role and Contributions in Work Environments",
-      fields: [
-        { label: "responsibility", type: "text" },
-        { label: "organization_name", type: "text" },
-        { label: "duration", type: "text" },
-        { label: "additional_info", type: "text" },
-      ],
-    },
-    {
-      title: "Academic Associative Membership",
-      heading: "Detail Your Involvement in Academic Associations and Societies",
-      fields: [
-        { label: "membership_type", type: "text" },
-        { label: "organization_name", type: "text" },
-        { label: "duration", type: "text" },
-        { label: "additional_info", type: "text" },
-      ],
-    },
-    {
-      title: "Skills",
-      heading: "Outline Your Proficiencies and Competencies",
-      fields: [
-        { label: "skill_name", type: "text" },
-        { label: "proficiency_level", type: "text" },
-        { label: "years_of_experience", type: "text" },
-        { label: "additional_info", type: "text" },
-      ],
-    },
-    {
-      title: "Taught Courses",
-      heading: "Provide Details of Courses You Have Taught or Currently Teach",
-      fields: [
-        { label: "course_name", type: "text" },
-        { label: "course_code", type: "text" },
-        { label: "total_credit", type: "text" },
-        { label: "duration", type: "text" },
-        { label: "semester", type: "text" },
-        { label: "session", type: "text" },
-        { label: "instructor", type: "text" },
-      ],
-    },
-    {
-      title: "Languages",
-      heading: "Specify Your Proficiency in Different Languages",
-      fields: [
-        { label: "language_name", type: "text" },
-        { label: "proficiency_level", type: "text" },
-        { label: "additional_info", type: "text" },
-      ],
-    },
-    {
-      title: "Projects",
-      heading: "Describe Your Relevant Academic or Professional Projects",
-      fields: [
-        { label: "project_name", type: "text" },
-        { label: "duration", type: "text" },
-        { label: "short_description", type: "text" },
-        { label: "project_link", type: "text" },
-        { label: "additional_info", type: "text" },
+        { label: "scholarship_title", type: "text" },
+        { label: "scholarship_institution", type: "text" },
+        { label: "scholarship_from_year", type: "text" },
+        { label: "scholarship_to_year", type: "text" },
+        { label: "scholarship_country", type: "text" },
+        { label: "scholarship_degree", type: "text" },
       ],
     },
     {
       title: "Training & Certifications",
       heading: "List Your Training Programs and Certifications",
       fields: [
-        { label: "training_name", type: "text" },
-        { label: "provider", type: "text" },
-        { label: "duration", type: "text" },
-        { label: "certification_status", type: "text" },
-        { label: "certification_date", type: "text" },
-        { label: "additional_info", type: "text" },
-      ],
-    },
-    {
-      title: "Books",
-      heading: "Books Authored or Contributed to",
-      fields: [
-        { label: "title", type: "text" },
-        { label: "author", type: "text" },
-        { label: "publisher", type: "text" },
-        { label: "pages", type: "text" },
-        { label: "publication_date", type: "text" },
-        { label: "additional_info", type: "text" },
+        { label: "training_title", type: "text" },
+        { label: "training_field", type: "text" },
+        { label: "training_year", type: "text" },
+        { label: "training_duration", type: "text" },
       ],
     },
     {
       title: "Journals",
       heading: "Publications in Peer-Reviewed Journals and Conferences",
       fields: [
-        { label: "title", type: "text" },
-        { label: "authors", type: "text" },
-        { label: "journal", type: "text" },
-        { label: "publisher", type: "text" },
-        { label: "pages", type: "text" },
-        { label: "publication_date", type: "text" },
-        { label: "additional_info", type: "text" },
+        { label: "journal_title", type: "text" },
+        { label: "journal_type", type: "text" },
+        { label: "journal_year", type: "text" },
       ],
     },
     {
-      title: "Conference & Research Seminar",
-      heading: "Participation in Conferences and Research Seminars",
+      title: "Publications",
+      heading: "Different publications",
       fields: [
-        { label: "title", type: "text" },
-        { label: "authors", type: "text" },
-        { label: "proceedings_title", type: "text" },
-        { label: "year", type: "text" },
+        { label: "publication_title", type: "text" },
+        { label: "publication_field", type: "text" },
         { label: "publication_year", type: "text" },
-        { label: "additional_info", type: "text" },
+        { label: "publication_description", type: "text" },
       ],
     },
+    {
+      title: "Accomplishments",
+      heading: "Different accomplishment",
+      fields: [
+        { label: "acomplishment_title", type: "text" },
+        { label: "acomplishment_field", type: "text" },
+        { label: "acomplishment_year", type: "text" },
+        { label: "acomplishment_organization", type: "text" },
+      ],
+    }
   ];
 
   const handleOpenModal = (index) => {
@@ -239,7 +138,129 @@ function ChildModal() {
     const updatedFormData = [...formData];
     updatedFormData[index] = {};
     setFormData(updatedFormData);
-    // Close the modal
+    let object = formData[index]
+    if(index === 0){
+      object.user_id = user_id 
+      axios.post(`http://localhost:5000/api/teacher/addEducation/${user_id}`, object, {
+        headers : {
+          Authorization : `Bearer ${session_token}`
+        }
+      })
+      .then(res => {
+        console.log(res.data.message)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    }
+    else{
+      object.teacher_id = teacher_id
+      if( index === 1) {
+        axios.post(`http://localhost:5000/api/teacher/addProfessionalExperience/${teacher_id}`, object, {
+          headers : {
+            Authorization : `Bearer ${session_token}`
+          }
+        })
+        .then(res => {
+          console.log(res.data.message)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+      }
+      else if(index === 2){
+        axios.post(`http://localhost:5000/api/teacher/addAdministrativeExperience/${teacher_id}`, object, {
+          headers : {
+            Authorization : `Bearer ${session_token}`
+          }
+        })
+        .then(res => {
+          console.log(res.data.message)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+      }
+      else if(index === 3){
+        axios.post(`http://localhost:5000/api/teacher/addAward/${teacher_id}`, object, {
+          headers : {
+            Authorization : `Bearer ${session_token}`
+          }
+        })
+        .then(res => {
+          console.log(res.data.message)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+      }
+      else if(index === 4){
+        axios.post(`http://localhost:5000/api/teacher/addScholarshipAndFellowship/${teacher_id}`, object, {
+          headers : {
+            Authorization : `Bearer ${session_token}`
+          }
+        })
+        .then(res => {
+          console.log(res.data.message)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+      }
+      else if(index === 5){
+        axios.post(`http://localhost:5000/api/teacher/addTrainingAndCertification/${teacher_id}`, object, {
+          headers : {
+            Authorization : `Bearer ${session_token}`
+          }
+        })
+        .then(res => {
+          console.log(res.data.message)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+      }
+      else if(index === 6){
+        axios.post(`http://localhost:5000/api/teacher/addJournal/${teacher_id}`, object, {
+          headers : {
+            Authorization : `Bearer ${session_token}`
+          }
+        })
+        .then(res => {
+          console.log(res.data.message)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+      }
+      else if(index === 7){
+        axios.post(`http://localhost:5000/api/teacher/addPublication/${teacher_id}`, object, {
+          headers : {
+            Authorization : `Bearer ${session_token}`
+          }
+        })
+        .then(res => {
+          console.log(res.data.message)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+      }
+      else if(index === 8){
+        axios.post(`http://localhost:5000/api/teacher/addAccomplishment/${teacher_id}`, object, {
+          headers : {
+            Authorization : `Bearer ${session_token}`
+          }
+        })
+        .then(res => {
+          console.log(res.data.message)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+      }
+    }
+   //Close the modal
     handleCloseModal(index);
   };
 
