@@ -5,11 +5,16 @@ const Dashboard = () => {
   const token = "20821543-6ec5-11ef-9fdb-3c5282764ceb";
   const [record, setRecord] = useState([]);
   const [teacherInfo, setTeacherInfo] = useState(null); // Ensure correct capitalization and naming
+  const [coursePublication, setCoursePublication] = useState(null);
   const [upcoming, setUpcoming] = useState({
     classes: [],
     evaluations: [],
     meetings: [],
   });
+
+
+  const [loading, setLoading] = useState(true); // New state for loading indicator
+  const [error, setError] = useState(null); // New state for error handling
 
   useEffect(() => {
     const fetchData = async () => {
@@ -24,10 +29,11 @@ const Dashboard = () => {
         setRecord(data);
       } catch (error) {
         console.error("Error fetching data:", error);
+        setError(error.message);
       }
     };
+
     const fetchUpcoming = async () => {
-      // Sample data for upcoming items
       const upcomingData = {
         classes: [
           { id: 1, title: "Math 101", date: "2024-07-04", time: "10:00 AM" },
@@ -53,34 +59,63 @@ const Dashboard = () => {
       setUpcoming(upcomingData);
     };
 
-    fetchData();
-    fetchUpcoming();
+    const fetchTeacherInfo = () => {
+      return axios
+        .get("http://localhost:5000/api/teacher/12345679", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => res.data)
+        .catch((error) => {
+          console.error("Error fetching teacher info:", error);
+          throw error;
+        });
+    };
+
+    const fetchCourseCount = () => {
+      return axios
+        .get("http://localhost:5000/api/teacher/teacher-stats/12345679", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => res.data)
+        .catch((error) => {
+          console.error("Error fetching course count:", error);
+          throw error;
+        });
+    };
+
+    const loadData = async () => {
+      try {
+        await fetchData();
+        fetchUpcoming();
+
+        const [teacherInfoData, courseCountData] = await Promise.all([
+          fetchTeacherInfo(),
+          fetchCourseCount(),
+        ]);
+
+        setTeacherInfo(teacherInfoData);
+        setCoursePublication(courseCountData);
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadData();
   }, []);
 
-  const fetchData = () => {
-    axios
-      .get("http://localhost:5000/api/teacher/12345679", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((res) => {
-        setTeacherInfo(res.data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  // Ensure you're checking the correct state variable
-  if (!teacherInfo) {
+  if (loading) {
     return <div>Loading...</div>;
   }
 
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
 
   return (
     <div className="col main ml-15 mt-2">
@@ -98,7 +133,7 @@ const Dashboard = () => {
                 <i className="fas fa-book fa-4x"></i>
               </div>
               <h6 className="text-uppercase mt-1">Courses</h6>
-              <h1 className="display-4">255</h1>
+              <h1 className="display-4">{coursePublication.course_count}</h1>
             </div>
           </div>
         </div>
@@ -109,7 +144,7 @@ const Dashboard = () => {
                 <i className="fas fa-chalkboard-teacher fa-4x"></i>
               </div>
               <h6 className="text-uppercase mt-1">Classes</h6>
-              <h1 className="display-4">1320</h1>
+              <h1 className="display-4">{coursePublication.course_count * 40}</h1>
             </div>
           </div>
         </div>
@@ -120,7 +155,7 @@ const Dashboard = () => {
                 <i className="fas fa-graduation-cap fa-4x"></i>
               </div>
               <h6 className="text-uppercase mt-1">Publications</h6>
-              <h1 className="display-4">27</h1>
+              <h1 className="display-4">{coursePublication.publication_count}</h1>
             </div>
           </div>
         </div>
@@ -131,7 +166,7 @@ const Dashboard = () => {
                 <i className="fas fa-award fa-4x"></i>
               </div>
               <h6 className="text-uppercase mt-1">Awards</h6>
-              <h1 className="display-4">2</h1>
+              <h1 className="display-4">{coursePublication.award_count}</h1>
             </div>
           </div>
         </div>
