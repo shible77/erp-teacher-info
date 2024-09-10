@@ -18,6 +18,7 @@ function ChildModal({ session_token, teacher_id, user_id }) {
     {
       title: "Education",
       heading: "Share Your Educational Journey and Academic Achievements",
+      request: "Please enter the information carefully",
       fields: [
         { label: "education_title", type: "text" },
         { label: "education_institution", type: "text" },
@@ -30,6 +31,7 @@ function ChildModal({ session_token, teacher_id, user_id }) {
       title: "Professional Experience",
       heading:
         "Tell Us About Your Professional Experience and Career Highlights",
+        request: "Please enter the information carefully",
       fields: [
         { label: "professional_experience_title", type: "text" },
         { label: "professional_experience_institution", type: "text" },
@@ -41,6 +43,7 @@ function ChildModal({ session_token, teacher_id, user_id }) {
     {
       title: "Administrative Experience",
       heading: "Share Your Administrative Experience and Leadership Roles",
+      request: "Please enter the information carefully",
       fields: [
         { label: "administrative_experinece_title", type: "text" },
         { label: "administrative_experinece_institution", type: "text" },
@@ -52,6 +55,7 @@ function ChildModal({ session_token, teacher_id, user_id }) {
       title: "Honors & Awards",
       heading:
         "Please Provide Details of Your Honors, Awards, and Recognitions",
+        request: "Please enter the information carefully",
       fields: [
         { label: "award_title", type: "text" },
         { label: "award_institution", type: "text" },
@@ -62,6 +66,7 @@ function ChildModal({ session_token, teacher_id, user_id }) {
     {
       title: "Scholarships & Fellowships",
       heading: "Share Your Academic Achievements and Recognitions",
+      request: "Please enter the information carefully",
       fields: [
         { label: "scholarship_title", type: "text" },
         { label: "scholarship_institution", type: "text" },
@@ -74,6 +79,7 @@ function ChildModal({ session_token, teacher_id, user_id }) {
     {
       title: "Training & Certifications",
       heading: "List Your Training Programs and Certifications",
+      request: "Please enter the information carefully",
       fields: [
         { label: "training_title", type: "text" },
         { label: "training_field", type: "text" },
@@ -84,6 +90,7 @@ function ChildModal({ session_token, teacher_id, user_id }) {
     {
       title: "Journals",
       heading: "Publications in Peer-Reviewed Journals and Conferences",
+      request: "Please enter the information carefully",
       fields: [
         { label: "journal_title", type: "text" },
         { label: "journal_type", type: "text" },
@@ -93,6 +100,7 @@ function ChildModal({ session_token, teacher_id, user_id }) {
     {
       title: "Publications",
       heading: "Different publications",
+      request: "Please enter the information carefully",
       fields: [
         { label: "publication_title", type: "text" },
         { label: "publication_field", type: "text" },
@@ -103,6 +111,7 @@ function ChildModal({ session_token, teacher_id, user_id }) {
     {
       title: "Accomplishments",
       heading: "Different accomplishment",
+      request: "Please enter the information carefully",
       fields: [
         { label: "acomplishment_title", type: "text" },
         { label: "acomplishment_field", type: "text" },
@@ -284,6 +293,7 @@ function ChildModal({ session_token, teacher_id, user_id }) {
         >
           <Box className="child_modal-container">
             <h5 className="modal-heading">{modal.heading}</h5>
+            <h6 className="modal-heading">{modal.request}</h6>
             <form className="modal-form">
               {modal.fields.map((field, fieldIndex) => (
                 <div key={fieldIndex} className="modal-input">

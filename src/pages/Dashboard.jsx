@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-
-
+import axios from "axios";
 
 const Dashboard = () => {
-  
+  const token = "20821543-6ec5-11ef-9fdb-3c5282764ceb";
   const [record, setRecord] = useState([]);
+  const [teacherInfo, setTeacherInfo] = useState(null); // Ensure correct capitalization and naming
   const [upcoming, setUpcoming] = useState({
     classes: [],
     evaluations: [],
@@ -57,59 +57,85 @@ const Dashboard = () => {
     fetchUpcoming();
   }, []);
 
-  
+  const fetchData = () => {
+    axios
+      .get("http://localhost:5000/api/teacher/12345679", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        setTeacherInfo(res.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  // Ensure you're checking the correct state variable
+  if (!teacherInfo) {
+    return <div>Loading...</div>;
+  }
+
 
   return (
     <div className="col main ml-15 mt-2">
       <p className="lead d-none d-sm-block">
-        Welcome back, Dr. Rudra Pratap Deb Nath
+        Welcome back, {teacherInfo.personal_info.title} {teacherInfo.personal_info.first_name} {teacherInfo.personal_info.last_name}
       </p>
       <div className="row mb-3">
-  <div className="col-xl-3 col-sm-6 py-2">
-    <div className="card bg-success text-white h-100">
-      <div className="card-body d-flex flex-column align-items-center justify-content-center" style={{ backgroundColor: "#57b960" }}>
-        <div className="rotate">
-          <i className="fas fa-book fa-4x"></i>
+        <div className="col-xl-3 col-sm-6 py-2">
+          <div className="card bg-success text-white h-100">
+            <div
+              className="card-body d-flex flex-column align-items-center justify-content-center"
+              style={{ backgroundColor: "#57b960" }}
+            >
+              <div className="rotate">
+                <i className="fas fa-book fa-4x"></i>
+              </div>
+              <h6 className="text-uppercase mt-1">Courses</h6>
+              <h1 className="display-4">255</h1>
+            </div>
+          </div>
         </div>
-        <h6 className="text-uppercase mt-1">Courses</h6>
-        <h1 className="display-4">255</h1>
-      </div>
-    </div>
-  </div>
-  <div className="col-xl-3 col-sm-6 py-2">
-    <div className="card text-white bg-danger h-100">
-      <div className="card-body d-flex flex-column align-items-center justify-content-center">
-        <div className="rotate">
-          <i className="fas fa-chalkboard-teacher fa-4x"></i>
+        <div className="col-xl-3 col-sm-6 py-2">
+          <div className="card text-white bg-danger h-100">
+            <div className="card-body d-flex flex-column align-items-center justify-content-center">
+              <div className="rotate">
+                <i className="fas fa-chalkboard-teacher fa-4x"></i>
+              </div>
+              <h6 className="text-uppercase mt-1">Classes</h6>
+              <h1 className="display-4">1320</h1>
+            </div>
+          </div>
         </div>
-        <h6 className="text-uppercase mt-1">Classes</h6>
-        <h1 className="display-4">1320</h1>
-      </div>
-    </div>
-  </div>
-  <div className="col-xl-3 col-sm-6 py-2">
-    <div className="card text-white bg-info h-100">
-      <div className="card-body d-flex flex-column align-items-center justify-content-center">
-        <div className="rotate">
-          <i className="fas fa-graduation-cap fa-4x"></i>
+        <div className="col-xl-3 col-sm-6 py-2">
+          <div className="card text-white bg-info h-100">
+            <div className="card-body d-flex flex-column align-items-center justify-content-center">
+              <div className="rotate">
+                <i className="fas fa-graduation-cap fa-4x"></i>
+              </div>
+              <h6 className="text-uppercase mt-1">Publications</h6>
+              <h1 className="display-4">27</h1>
+            </div>
+          </div>
         </div>
-        <h6 className="text-uppercase mt-1">Publications</h6>
-        <h1 className="display-4">27</h1>
-      </div>
-    </div>
-  </div>
-  <div className="col-xl-3 col-sm-6 py-2">
-    <div className="card text-white bg-warning h-100">
-      <div className="card-body d-flex flex-column align-items-center justify-content-center">
-        <div className="rotate">
-          <i className="fas fa-award fa-4x"></i>
+        <div className="col-xl-3 col-sm-6 py-2">
+          <div className="card text-white bg-warning h-100">
+            <div className="card-body d-flex flex-column align-items-center justify-content-center">
+              <div className="rotate">
+                <i className="fas fa-award fa-4x"></i>
+              </div>
+              <h6 className="text-uppercase mt-1">Awards</h6>
+              <h1 className="display-4">2</h1>
+            </div>
+          </div>
         </div>
-        <h6 className="text-uppercase mt-1">Awards</h6>
-        <h1 className="display-4">2</h1>
       </div>
-    </div>
-  </div>
-</div>
 
       <hr />
 

@@ -1,0 +1,150 @@
+/* Modal overlay to cover the entire screen */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent black */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Modal content box */
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 12px; /* Rounded corners */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Soft shadow */
+  width: 90%;
+  max-width: 600px; /* Limit the width */
+  animation: fadeIn 0.3s ease; /* Smooth fade-in effect */
+}
+
+/* Smooth fade-in animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* Modal header with close button */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+  color: #333;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #aaa;
+  transition: color 0.3s ease;
+}
+
+.close-button:hover {
+  color: #333;
+}
+
+.image-preview {
+  margin-top: 10px;
+}
+
+.image-preview img {
+  max-width: 100%;
+  max-height: 200px;
+  border-radius: 8px;
+}
+
+
+/* Modal body with upload options */
+.modal-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.upload-options {
+  width: 100%;
+}
+
+.upload-option {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  background-color: #f9f9f9;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.upload-option:hover {
+  background-color: #eee;
+  border-color: #ccc;
+}
+
+.drag-drop-area {
+  padding: 20px;
+  border: 2px dashed #ddd;
+  border-radius: 8px;
+  color: #666;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.drag-drop-area:hover {
+  background-color: #f1f1f1;
+  border-color: #bbb;
+}
+
+/* Modal footer with action buttons */
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.cancel-button,
+.upload-button {
+  padding: 10px 20px;
+  margin-left: 10px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.cancel-button {
+  background-color: #ccc;
+  color: white;
+}
+
+.cancel-button:hover {
+  background-color: #bbb;
+}
+
+.upload-button {
+  background-color: #28a745; /* Green */
+  color: white;
+}
+
+.upload-button:hover {
+  background-color: #218838; /* Darker green */
+}

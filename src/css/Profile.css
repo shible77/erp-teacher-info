@@ -139,10 +139,10 @@
 }
 
 .blur-background img {
-  height: 150px;
-  width: 150px;
+  height: 180px;
+  width: 180px;
   margin-left: 100px;
-  margin-top: 50px;
+  margin-top: 40px;
 }
 
 .info-container {
@@ -275,7 +275,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  padding: 30px;
+  padding: 50px;
   background-color: #ffffff; /* White background */
   border-radius: 8px; /* Rounded corners */
   margin: 0 auto; /* Center horizontally */
@@ -389,3 +389,68 @@
     font-size: 14px;
   }
 }
+
+
+
+.profile-pic-container {
+  position: relative;
+  display: inline-block;
+}
+
+.profile-pic {
+  border-radius: 50%;
+}
+
+.upload-buttons {
+  position: absolute;
+  bottom: 30px;
+  right: 10px;
+  background-color: white;
+  border: none;
+  border-radius: 50%; /* Ensures the button is perfectly round */
+  cursor: pointer;
+  width: 40px;  /* Equal width and height for a round button */
+  height: 40px; /* Equal width and height for a round button */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.camera-icon {
+  font-size: 20px; /* Adjusted icon size to fit within the round button */
+}
+
+
+
+.education-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.education-text {
+  flex: 1; /* Takes up the remaining space */
+}
+
+.action-icons {
+  display: flex;
+  gap: 10px; /* Space between icons */
+  margin-right: 25px;
+}
+
+.edit-icon,
+.delete-icon {
+  cursor: pointer;
+  color: #007bff; /* Change color as needed */
+}
+
+.delete-icon {
+  color: #dc3545; /* Change color as needed */
+}
+
+.edit-icon:hover,
+.delete-icon:hover {
+  opacity: 0.7;
+}
+

@@ -1,19 +1,79 @@
 import React, { useState, useEffect } from "react";
 import "../css/Profile.css"; // Import CSS file for styling
-import { FaSearch } from "react-icons/fa"; // Import the search icon
-import { FaSquare } from "react-icons/fa";
-import TeacherImage from "../resource/RudraSir.jpg";
+import {
+  FaSearch,
+  FaSquare,
+  FaCamera,
+  FaEdit,
+  FaTrashAlt,
+} from "react-icons/fa"; // Import the search icon
+import TeacherImage from "../resource/Rashed_sir.jpg";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import ChildModal from "../modal/ChildModal"; // Import ChildModal component
 import axios from "axios";
+import UploadModal from "../modal/UploadModal";
+import ConfirmationDialog from "../components/sidebar/ConfirmationDialog";
 import { convertLength } from "@mui/material/styles/cssUtils";
 
 function Profile() {
   const [activeContent, setActiveContent] = useState("bio");
   const [open, setOpen] = React.useState(false);
   const [teacherInfo, setTeacherInfo] = useState(null);
-  const token = "465865fb-41af-11ef-bc14-3c5282764ceb";
+  const token = "20821543-6ec5-11ef-9fdb-3c5282764ceb";
+  const [showModal, setShowModal] = useState(false);
+  const [profileImage, setProfileImage] = useState(TeacherImage);
+
+  
+  const handleEdit = (index) => {
+    // Handle edit action
+    console.log(`Edit item at index ${index}`);
+  };
+
+
+  //Handling teacher's information delete
+  const [showDialog, setShowDialog] = useState(false);
+  const [deleteIndex, setDeleteIndex] = useState(null);
+
+  const handleDeleteClick = (index) => {
+    setDeleteIndex(index);
+    setShowDialog(true);
+  };
+
+  const handleConfirmDelete = () => {
+    if (deleteIndex !== null) {
+      // Perform delete operation here
+      console.log(`Delete item at index ${deleteIndex}`);
+      // Reset state
+      setDeleteIndex(null);
+    }
+    setShowDialog(false);
+  };
+
+  const handleCancelDelete = () => {
+    setDeleteIndex(null);
+    setShowDialog(false);
+  };
+
+
+  // Handling teacher's profile picture upload
+  const handleOpenModal = () => {
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
+  const handleUpload = (file) => {
+    // Here, you would handle the image upload logic (e.g., to a server or local state)
+    const imageUrl = URL.createObjectURL(file);
+    setProfileImage(imageUrl);
+    handleCloseModal();
+  };
+
+
+  //Handling EDIT MY PROFILE modal
   const handleOpen = () => {
     setOpen(true);
   };
@@ -69,57 +129,115 @@ function Profile() {
                 Cooking.
               </p>
             </div>
+
             {teacherInfo && (
               <div className="subsub-content">
                 <h2 className="section-heading">Education</h2>
                 <div className="underline"></div>
                 <ul className="education-list">
                   {teacherInfo.education.map((edu, index) => (
-                    <li key={index}>
+                    <li key={index} className="education-item">
                       <FaSquare className="bullet-icon" />
-                      {edu.education_title}, {edu.education_institution},{" "}
-                      {edu.education_country} ({edu.education_from_year}-
-                      {edu.education_to_year})
+                      <span className="education-text">
+                        {edu.education_title}, {edu.education_institution},{" "}
+                        {edu.education_country} ({edu.education_from_year}-
+                        {edu.education_to_year})
+                      </span>
+                      <span className="action-icons">
+                        <FaEdit
+                          className="edit-icon"
+                          onClick={() => handleEdit(index)}
+                        />
+                        <FaTrashAlt
+                          className="delete-icon"
+                          onClick={() => handleDeleteClick(index)}
+                        />
+                      </span>
                     </li>
                   ))}
                 </ul>
               </div>
             )}
+            {/* Confirmation Dialog */}
+            <ConfirmationDialog
+              show={showDialog}
+              onClose={handleCancelDelete}
+              onConfirm={handleConfirmDelete}
+            />
+
             {teacherInfo && (
               <div className="subsub-content">
                 <h2 className="section-heading">Professional Experience</h2>
                 <div className="underline"></div>
                 <ul className="education-list">
                   {teacherInfo.professional_experience.map((exp, index) => (
-                    <li key={index}>
+                    <li key={index} className="education-item">
                       <FaSquare className="bullet-icon" />
-                      {exp.professional_experience_title},{" "}
-                      {exp.professional_experience_institution},{" "}
-                      {exp.professional_experience_country} (
-                      {exp.professional_experience_year}) -{" "}
-                      {exp.professional_experience_description}
+                      <span className="education-text">
+                        {exp.professional_experience_title},{" "}
+                        {exp.professional_experience_institution},{" "}
+                        {exp.professional_experience_country} (
+                        {exp.professional_experience_year}) -{" "}
+                        {exp.professional_experience_description}
+                      </span>
+                      <span className="action-icons">
+                        <FaEdit
+                          className="edit-icon"
+                          onClick={() => handleEdit(index)}
+                        />
+                        <FaTrashAlt
+                          className="delete-icon"
+                          onClick={() => handleDeleteClick(index)}
+                        />
+                      </span>
                     </li>
                   ))}
                 </ul>
               </div>
             )}
+            {/* Confirmation Dialog */}
+            <ConfirmationDialog
+              show={showDialog}
+              onClose={handleCancelDelete}
+              onConfirm={handleConfirmDelete}
+            />
+
             {teacherInfo && (
               <div className="subsub-content">
                 <h2 className="section-heading">Administrative Experience</h2>
                 <div className="underline"></div>
                 <ul className="education-list">
                   {teacherInfo.administrative_experience.map((exp, index) => (
-                    <li key={index}>
+                    <li key={index} className="education-item">
                       <FaSquare className="bullet-icon" />
-                      {exp.administrative_experinece_title},{" "}
-                      {exp.administrative_experinece_institution}, (
-                      {exp.administrative_experinece_year}) -{" "}
-                      {exp.administrative_experinece_description}
+                      <span className="education-text">
+                        {exp.administrative_experinece_title},{" "}
+                        {exp.administrative_experinece_institution}, (
+                        {exp.administrative_experinece_year}) -{" "}
+                        {exp.administrative_experinece_description}
+                      </span>
+                      <span className="action-icons">
+                        <FaEdit
+                          className="edit-icon"
+                          onClick={() => handleEdit(index)}
+                        />
+                        <FaTrashAlt
+                          className="delete-icon"
+                          onClick={() => handleDeleteClick(index)}
+                        />
+                      </span>
                     </li>
                   ))}
                 </ul>
               </div>
             )}
+            {/* Confirmation Dialog */}
+            <ConfirmationDialog
+              show={showDialog}
+              onClose={handleCancelDelete}
+              onConfirm={handleConfirmDelete}
+            />
+
             <div className="subsub-content">
               <h2 className="section-heading">Experience on Social Welfare</h2>
               <div className="underline"></div>
@@ -178,16 +296,35 @@ function Profile() {
                 <div className="underline"></div>
                 <ul className="education-list">
                   {teacherInfo.award.map((award, index) => (
-                    <li key={index}>
+                    <li key={index} className="education-item">
                       <FaSquare className="bullet-icon" />
-                      <strong>{award.award_title}</strong>,{" "}
-                      {award.award_institution} ({award.award_year}),{" "}
-                      {award.award_country}
+                      <span className="education-text">
+                        <strong>{award.award_title}</strong>,{" "}
+                        {award.award_institution} ({award.award_year}),{" "}
+                        {award.award_country}
+                      </span>
+                      <span className="action-icons">
+                        <FaEdit
+                          className="edit-icon"
+                          onClick={() => handleEdit(index)}
+                        />
+                        <FaTrashAlt
+                          className="delete-icon"
+                          onClick={() => handleDeleteClick(index)}
+                        />
+                      </span>
                     </li>
                   ))}
                 </ul>
               </div>
             )}
+            {/* Confirmation Dialog */}
+            <ConfirmationDialog
+              show={showDialog}
+              onClose={handleCancelDelete}
+              onConfirm={handleConfirmDelete}
+            />
+
             {teacherInfo && (
               <div className="subsub-content">
                 <h2 className="section-heading">Scholarships & Fellowships</h2>
@@ -195,20 +332,39 @@ function Profile() {
                 <ul className="education-list">
                   {teacherInfo.scholarship_and_fellowship.map(
                     (scholarship, index) => (
-                      <li key={index}>
+                      <li key={index} className="education-item">
                         <FaSquare className="bullet-icon" />
-                        {scholarship.scholarship_title},{" "}
-                        {scholarship.scholarship_institution},{" "}
-                        {scholarship.scholarship_country} (
-                        {scholarship.scholarship_from_year}-
-                        {scholarship.scholarship_to_year}),{" "}
-                        {scholarship.scholarship_degree}
+                        <span className="education-text">
+                          {scholarship.scholarship_title},{" "}
+                          {scholarship.scholarship_institution},{" "}
+                          {scholarship.scholarship_country} (
+                          {scholarship.scholarship_from_year}-
+                          {scholarship.scholarship_to_year}),{" "}
+                          {scholarship.scholarship_degree}
+                        </span>
+                        <span className="action-icons">
+                        <FaEdit
+                          className="edit-icon"
+                          onClick={() => handleEdit(index)}
+                        />
+                        <FaTrashAlt
+                          className="delete-icon"
+                          onClick={() => handleDeleteClick(index)}
+                        />
+                      </span>
                       </li>
                     )
                   )}
                 </ul>
               </div>
             )}
+            {/* Confirmation Dialog */}
+            <ConfirmationDialog
+              show={showDialog}
+              onClose={handleCancelDelete}
+              onConfirm={handleConfirmDelete}
+            />
+
             <div className="subsub-content">
               <h2 className="section-heading">Professional Responsibilities</h2>
               <div className="underline"></div>
@@ -342,17 +498,36 @@ function Profile() {
                 <div className="underline"></div>
                 <ul className="education-list">
                   {teacherInfo.accomplishment.map((accomplishment, index) => (
-                    <li key={index}>
+                    <li key={index} className="education-item">
                       <FaSquare className="bullet-icon" />
-                      {accomplishment.acomplishment_title},{" "}
-                      {accomplishment.acomplishment_field},{" "}
-                      {accomplishment.acomplishment_organization} (
-                      {accomplishment.acomplishment_year})
+                      <span className="education-text">
+                        {accomplishment.acomplishment_title},{" "}
+                        {accomplishment.acomplishment_field},{" "}
+                        {accomplishment.acomplishment_organization} (
+                        {accomplishment.acomplishment_year})
+                      </span>
+                      <span className="action-icons">
+                        <FaEdit
+                          className="edit-icon"
+                          onClick={() => handleEdit(index)}
+                        />
+                        <FaTrashAlt
+                          className="delete-icon"
+                          onClick={() => handleDeleteClick(index)}
+                        />
+                      </span>
                     </li>
                   ))}
                 </ul>
               </div>
             )}
+            {/* Confirmation Dialog */}
+            <ConfirmationDialog
+              show={showDialog}
+              onClose={handleCancelDelete}
+              onConfirm={handleConfirmDelete}
+            />
+
             {teacherInfo && (
               <div className="subsub-content">
                 <h2 className="section-heading">Training & Certifications</h2>
@@ -360,17 +535,36 @@ function Profile() {
                 <ul className="education-list">
                   {teacherInfo.training_and_certification.map(
                     (training, index) => (
-                      <li key={index}>
+                      <li key={index} className="education-item">
                         <FaSquare className="bullet-icon" />
-                        {training.training_title}, {training.training_field} (
-                        {training.training_year}), Duration:{" "}
-                        {training.training_duration}
+                        <span className="education-text">
+                          {training.training_title}, {training.training_field} (
+                          {training.training_year}), Duration:{" "}
+                          {training.training_duration}
+                        </span>
+                        <span className="action-icons">
+                        <FaEdit
+                          className="edit-icon"
+                          onClick={() => handleEdit(index)}
+                        />
+                        <FaTrashAlt
+                          className="delete-icon"
+                          onClick={() => handleDeleteClick(index)}
+                        />
+                      </span>
                       </li>
                     )
                   )}
                 </ul>
               </div>
             )}
+            {/* Confirmation Dialog */}
+            <ConfirmationDialog
+              show={showDialog}
+              onClose={handleCancelDelete}
+              onConfirm={handleConfirmDelete}
+            />
+
           </div>
         );
       case "publications":
@@ -382,34 +576,72 @@ function Profile() {
                 <div className="underline"></div>
                 <ul className="education-list">
                   {teacherInfo.publication.map((pub, index) => (
-                    <li key={index}>
+                    <li key={index} className="education-item">
                       <FaSquare className="bullet-icon" />
-                      <strong>{pub.publication_title}</strong>,{" "}
-                      {pub.publication_field} ({pub.publication_year})
-                      <br />
-                      {pub.publication_description}
+                      <span className="education-text">
+                        <strong>{pub.publication_title}</strong>,{" "}
+                        {pub.publication_field} ({pub.publication_year})
+                        <br />
+                        {pub.publication_description}
+                      </span>
+                      <span className="action-icons">
+                        <FaEdit
+                          className="edit-icon"
+                          onClick={() => handleEdit(index)}
+                        />
+                        <FaTrashAlt
+                          className="delete-icon"
+                          onClick={() => handleDeleteClick(index)}
+                        />
+                      </span>
                     </li>
                   ))}
                 </ul>
               </div>
             )}
+            {/* Confirmation Dialog */}
+            <ConfirmationDialog
+              show={showDialog}
+              onClose={handleCancelDelete}
+              onConfirm={handleConfirmDelete}
+            />
+
             {teacherInfo && (
               <div className="subsub-content">
                 <h2 className="section-heading">Journals</h2>
                 <div className="underline"></div>
                 <ul className="education-list">
                   {teacherInfo.journal.map((journal, index) => (
-                    <li key={index}>
+                    <li key={index} className="education-item">
                       <FaSquare className="bullet-icon" />
-                      <h6>{journal.journal_title}</h6>
-                      <p>
-                        {journal.journal_type}; {journal.journal_year}
-                      </p>
+                      <span className="education-text">
+                        <h6>{journal.journal_title}</h6>
+                        <p>
+                          {journal.journal_type}; {journal.journal_year}
+                        </p>
+                      </span>
+                      <span className="action-icons">
+                        <FaEdit
+                          className="edit-icon"
+                          onClick={() => handleEdit(index)}
+                        />
+                        <FaTrashAlt
+                          className="delete-icon"
+                          onClick={() => handleDeleteClick(index)}
+                        />
+                      </span>
                     </li>
                   ))}
                 </ul>
               </div>
             )}
+            {/* Confirmation Dialog */}
+            <ConfirmationDialog
+              show={showDialog}
+              onClose={handleCancelDelete}
+              onConfirm={handleConfirmDelete}
+            />
+            
             <div className="subsub-content">
               <h2 className="section-heading">Conference & Research Seminar</h2>
               <div className="underline"></div>
@@ -511,7 +743,16 @@ function Profile() {
         </div>
       </div>
       <div className="blur-background">
-        <img src={TeacherImage} alt="Faculty Member" />
+        <div className="profile-pic-container">
+          <img
+            src={profileImage}
+            alt="Faculty Member"
+            className="profile-pic"
+          />
+          <button className="upload-buttons" onClick={handleOpenModal}>
+            <i className="camera-icon">📷</i>
+          </button>
+        </div>
         {teacherInfo && (
           <div className="info-container">
             <div className="teacherName">
@@ -525,6 +766,11 @@ function Profile() {
             <div className="email">Email: rudra@cu.ac.bd</div>
           </div>
         )}
+        <UploadModal
+          show={showModal}
+          onClose={handleCloseModal}
+          onUpload={handleUpload}
+        />
       </div>
       <div className="content-container">
         <div className="button-container">
