@@ -20,16 +20,14 @@ function Profile() {
   const [activeContent, setActiveContent] = useState("bio");
   const [open, setOpen] = React.useState(false);
   const [teacherInfo, setTeacherInfo] = useState(null);
-  const token = "20821543-6ec5-11ef-9fdb-3c5282764ceb";
+  const token = "a1364cc9-7d52-11ef-ae14-3c5282764ceb";
   const [showModal, setShowModal] = useState(false);
   const [profileImage, setProfileImage] = useState(TeacherImage);
 
-  
   const handleEdit = (index) => {
     // Handle edit action
     console.log(`Edit item at index ${index}`);
   };
-
 
   //Handling teacher's information delete
   const [showDialog, setShowDialog] = useState(false);
@@ -55,7 +53,6 @@ function Profile() {
     setShowDialog(false);
   };
 
-
   // Handling teacher's profile picture upload
   const handleOpenModal = () => {
     setShowModal(true);
@@ -67,11 +64,24 @@ function Profile() {
 
   const handleUpload = (file) => {
     // Here, you would handle the image upload logic (e.g., to a server or local state)
-    const imageUrl = URL.createObjectURL(file);
-    setProfileImage(imageUrl);
+    const formData = new FormData();
+    formData.append("image", file);
+
+    axios
+      .post("http://localhost:5000/api/upload/image", formData)
+      .then((response) => {
+        setProfileImage(`http://localhost:5000/${response.data.image.path}`);
+        console.log(response.data)
+        console.log(response.data.image.path)
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+
+    // const imageUrl = URL.createObjectURL(file);
+    // setProfileImage(imageUrl);
     handleCloseModal();
   };
-
 
   //Handling EDIT MY PROFILE modal
   const handleOpen = () => {
@@ -103,6 +113,7 @@ function Profile() {
     fetchData();
   }, []);
 
+  // console.log(teacherInfo);
   const renderContent = () => {
     switch (activeContent) {
       case "bio":
@@ -343,15 +354,15 @@ function Profile() {
                           {scholarship.scholarship_degree}
                         </span>
                         <span className="action-icons">
-                        <FaEdit
-                          className="edit-icon"
-                          onClick={() => handleEdit(index)}
-                        />
-                        <FaTrashAlt
-                          className="delete-icon"
-                          onClick={() => handleDeleteClick(index)}
-                        />
-                      </span>
+                          <FaEdit
+                            className="edit-icon"
+                            onClick={() => handleEdit(index)}
+                          />
+                          <FaTrashAlt
+                            className="delete-icon"
+                            onClick={() => handleDeleteClick(index)}
+                          />
+                        </span>
                       </li>
                     )
                   )}
@@ -543,15 +554,15 @@ function Profile() {
                           {training.training_duration}
                         </span>
                         <span className="action-icons">
-                        <FaEdit
-                          className="edit-icon"
-                          onClick={() => handleEdit(index)}
-                        />
-                        <FaTrashAlt
-                          className="delete-icon"
-                          onClick={() => handleDeleteClick(index)}
-                        />
-                      </span>
+                          <FaEdit
+                            className="edit-icon"
+                            onClick={() => handleEdit(index)}
+                          />
+                          <FaTrashAlt
+                            className="delete-icon"
+                            onClick={() => handleDeleteClick(index)}
+                          />
+                        </span>
                       </li>
                     )
                   )}
@@ -564,7 +575,6 @@ function Profile() {
               onClose={handleCancelDelete}
               onConfirm={handleConfirmDelete}
             />
-
           </div>
         );
       case "publications":
@@ -641,7 +651,7 @@ function Profile() {
               onClose={handleCancelDelete}
               onConfirm={handleConfirmDelete}
             />
-            
+
             <div className="subsub-content">
               <h2 className="section-heading">Conference & Research Seminar</h2>
               <div className="underline"></div>

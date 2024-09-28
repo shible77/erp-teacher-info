@@ -2,62 +2,35 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 const Dashboard = () => {
-  const token = "20821543-6ec5-11ef-9fdb-3c5282764ceb";
+  const token = "a1364cc9-7d52-11ef-ae14-3c5282764ceb";
   const [record, setRecord] = useState([]);
-  const [teacherInfo, setTeacherInfo] = useState(null); // Ensure correct capitalization and naming
+  const [teacherInfo, setTeacherInfo] = useState(null);
   const [coursePublication, setCoursePublication] = useState(null);
-  const [upcoming, setUpcoming] = useState({
-    classes: [],
-    evaluations: [],
-    meetings: [],
-  });
 
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const [loading, setLoading] = useState(true); // New state for loading indicator
-  const [error, setError] = useState(null); // New state for error handling
+  const [examCommitteeRecords, setExamCommitteeRecords] = useState([]); // New state for exam committee records
+  const [meetingRecords, setMeetingRecords] = useState([]); // New state for meeting records
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(
-          "https://jsonplaceholder.typicode.com/users"
+        const response = await axios.get(
+          "http://localhost:5000/api/teacher/courses/12345679",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
         );
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        const data = await response.json();
-        setRecord(data);
+        setRecord(response.data);
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error("Error fetching courses:", error);
         setError(error.message);
       }
     };
 
-    const fetchUpcoming = async () => {
-      const upcomingData = {
-        classes: [
-          { id: 1, title: "Math 101", date: "2024-07-04", time: "10:00 AM" },
-          { id: 2, title: "Science 102", date: "2024-07-05", time: "12:00 PM" },
-        ],
-        evaluations: [
-          {
-            id: 1,
-            title: "Math Midterm",
-            date: "2024-07-06",
-            time: "02:00 PM",
-          },
-        ],
-        meetings: [
-          {
-            id: 1,
-            title: "Parent Meeting",
-            date: "2024-07-07",
-            time: "04:00 PM",
-          },
-        ],
-      };
-      setUpcoming(upcomingData);
-    };
 
     const fetchTeacherInfo = () => {
       return axios
@@ -87,10 +60,43 @@ const Dashboard = () => {
         });
     };
 
+    const fetchExamCommitteeRecords = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:5000/api/teacher/exam-committee/12345679",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        setExamCommitteeRecords(response.data); // Set the fetched exam committee records
+      } catch (error) {
+        console.error("Error fetching exam committee records:", error);
+        setError(error.message);
+      }
+    };
+
+    const fetchMeetingRecords = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:5000/api/teacher/meetings/12345679", // Update with the correct API endpoint
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        setMeetingRecords(response.data); // Set the fetched meeting records
+      } catch (error) {
+        console.error("Error fetching meeting records:", error);
+        setError(error.message);
+      }
+    };
+
     const loadData = async () => {
       try {
         await fetchData();
-        fetchUpcoming();
 
         const [teacherInfoData, courseCountData] = await Promise.all([
           fetchTeacherInfo(),
@@ -99,6 +105,12 @@ const Dashboard = () => {
 
         setTeacherInfo(teacherInfoData);
         setCoursePublication(courseCountData);
+
+        // Fetch exam committee records
+        await fetchExamCommitteeRecords();
+
+        // Fetch meeting records
+        await fetchMeetingRecords();
       } catch (error) {
         setError(error.message);
       } finally {
@@ -120,8 +132,12 @@ const Dashboard = () => {
   return (
     <div className="col main ml-15 mt-2">
       <p className="lead d-none d-sm-block">
-        Welcome back, {teacherInfo.personal_info.title} {teacherInfo.personal_info.first_name} {teacherInfo.personal_info.last_name}
+        Welcome back, {teacherInfo.personal_info.title}{" "}
+        {teacherInfo.personal_info.first_name}{" "}
+        {teacherInfo.personal_info.last_name}
       </p>
+
+      {/* Existing Courses Section */}
       <div className="row mb-3">
         <div className="col-xl-3 col-sm-6 py-2">
           <div className="card bg-success text-white h-100">
@@ -137,6 +153,7 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
+        {/* Other cards for Classes, Publications, Awards */}
         <div className="col-xl-3 col-sm-6 py-2">
           <div className="card text-white bg-danger h-100">
             <div className="card-body d-flex flex-column align-items-center justify-content-center">
@@ -144,7 +161,9 @@ const Dashboard = () => {
                 <i className="fas fa-chalkboard-teacher fa-4x"></i>
               </div>
               <h6 className="text-uppercase mt-1">Classes</h6>
-              <h1 className="display-4">{coursePublication.course_count * 40}</h1>
+              <h1 className="display-4">
+                {coursePublication.course_count * 40}
+              </h1>
             </div>
           </div>
         </div>
@@ -155,7 +174,9 @@ const Dashboard = () => {
                 <i className="fas fa-graduation-cap fa-4x"></i>
               </div>
               <h6 className="text-uppercase mt-1">Publications</h6>
-              <h1 className="display-4">{coursePublication.publication_count}</h1>
+              <h1 className="display-4">
+                {coursePublication.publication_count}
+              </h1>
             </div>
           </div>
         </div>
@@ -174,96 +195,143 @@ const Dashboard = () => {
 
       <hr />
 
+      {/* Your Courses Section */}
       <div className="row">
-        <h5 className="mt-3 mb-3 text-secondary">Check running courses</h5>
+        <h5 className="mt-3 mb-3 text-secondary">Your Courses</h5>
         <div className="table-responsive">
           <table className="table table-striped">
             <thead className="thead-light">
               <tr>
-                <th scope="col">Course Name</th>
-                <th scope="col">Course Started Date</th>
-                <th scope="col">Course End Date</th>
-                <th scope="col">Department Name</th>
+                <th scope="col">Course Code</th>
+                <th scope="col">Course Title</th>
+                <th scope="col">Credit</th>
+                <th scope="col">Course Type</th>
+                <th scope="col">Exam Duration (minutes)</th>
+                <th scope="col">Session</th>
                 <th scope="col">Semester</th>
-                <th scope="col">Total Classes</th>
-                <th scope="col">Room No.</th>
+                <th scope="col">Department</th>
+                <th scope="col">Faculty</th>
+                <th scope="col">Program Abbreviation</th>
               </tr>
             </thead>
             <tbody>
-              {record.slice(0, 5).map((user) => (
-                <tr key={user.id}>
-                  <td>{user.id}</td>
-                  <td>{user.name}</td>
-                  <td>{user.email}</td>
-                  <td>{user.username}</td>
-                  <td>{user.website}</td>
-                  <td>{user.username}</td>
-                  <td>{user.website}</td>
+              {record.map((course) => (
+                <tr key={course.course_code}>
+                  <td>{course.course_code}</td>
+                  <td>{course.course_title}</td>
+                  <td>{course.credit}</td>
+                  <td>{course.course_type}</td>
+                  <td>{course.exam_minutes}</td>
+                  <td>{course.session}</td>
+                  <td>{course.semester}</td>
+                  <td>{course.department_name}</td>
+                  <td>{course.faculty}</td>
+                  <td>{course.program_abbr}</td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
       </div>
+
       <hr />
 
-      <div className="row mb-3">
-        <h5 className="mt-3 mb-3 text-secondary">Upcoming Events</h5>
-        <div className="col-xl-3 col-sm-6 py-2">
-          <div
-            className="card text-black h-100"
-            style={{ backgroundColor: "rgb(197, 207, 207)" }}
-          >
-            <div className="card-body">
-              <h6>Classes</h6>
-              {upcoming.classes.map((cls) => (
-                <div key={cls.id} className="mb-2">
-                  <h6>{cls.title}</h6>
-                  <p>
-                    {cls.date} at {cls.time}
-                  </p>
-                </div>
+      {/* New Exam Committee Section */}
+      <div className="row">
+        <h5 className="mt-3 mb-3 text-secondary">Exam Committee Records</h5>
+        <div className="table-responsive">
+          <table className="table table-striped">
+            <thead className="thead-light">
+              <tr>
+                <th scope="col">Role</th>
+                <th scope="col">Exam Name</th>
+                <th scope="col">Exam Centre</th>
+                <th scope="col">Exam Start Date</th>
+                <th scope="col">Exam End Date</th>
+                <th scope="col">Formation Date</th>
+                <th scope="col">Department</th>
+                <th scope="col">Faculty</th>
+                <th scope="col">Session</th>
+                <th scope="col">Semester</th>
+                <th scope="col">Is Result Submitted</th>
+                <th scope="col">Result Submit Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              {examCommitteeRecords.map((member) => (
+                <tr key={member.id}>
+                  <td>{member.role}</td>
+                  <td>{member.exam_name}</td>
+                  <td>{member.exam_centre}</td>
+                  <td>
+                    {new Date(member.exam_start_date).toLocaleDateString()}
+                  </td>{" "}
+                  {/* Format date */}
+                  <td>
+                    {new Date(member.exam_end_date).toLocaleDateString()}
+                  </td>{" "}
+                  {/* Format date */}
+                  <td>
+                    {new Date(member.formation_date).toLocaleDateString()}
+                  </td>{" "}
+                  {/* Format date */}
+                  <td>{member.department_name}</td>
+                  <td>{member.faculty}</td>
+                  <td>{member.session}</td>
+                  <td>{member.semester}</td>
+                  <td>{member.is_result_submitted ? "Yes" : "No"}</td>{" "}
+                  {/* Conditional rendering */}
+                  <td>
+                    {member.result_submit_date
+                      ? new Date(member.result_submit_date).toLocaleDateString()
+                      : "Not Submitted"}
+                  </td>{" "}
+                  {/* Format date or show default text */}
+                </tr>
               ))}
-            </div>
-          </div>
-        </div>
-        <div className="col-xl-3 col-sm-6 py-2">
-          <div
-            className="card text-black h-100"
-            style={{ backgroundColor: "rgb(197, 207, 207)" }}
-          >
-            <div className="card-body">
-              <h6>Evaluations</h6>
-              {upcoming.evaluations.map((evaluation) => (
-                <div key={evaluation.id} className="mb-2">
-                  <h6>{evaluation.title}</h6>
-                  <p>
-                    {evaluation.date} at {evaluation.time}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-        <div className="col-xl-3 col-sm-6 py-2">
-          <div
-            className="card text-black h-100"
-            style={{ backgroundColor: "rgb(197, 207, 207)" }}
-          >
-            <div className="card-body">
-              <h6>Meetings</h6>
-              {upcoming.meetings.map((meeting) => (
-                <div key={meeting.id} className="mb-2">
-                  <h6>{meeting.title}</h6>
-                  <p>
-                    {meeting.date} at {meeting.time}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
+            </tbody>
+          </table>
         </div>
       </div>
+
+      <hr />
+
+      {/* New Meeting Section */}
+      <div className="row">
+        <h5 className="mt-3 mb-3 text-secondary">Meeting Records</h5>
+        <div className="table-responsive">
+          <table className="table table-striped">
+            <thead className="thead-light">
+              <tr>
+                <th scope="col">Meeting Time</th>
+                <th scope="col">Meeting Type</th>
+                <th scope="col">Room Name</th>
+                <th scope="col">Topic</th>
+                <th scope="col">Description</th>
+                <th scope="col">Decision</th>
+                <th scope="col">Department Name</th>
+                <th scope="col">Faculty</th>
+              </tr>
+            </thead>
+            <tbody>
+              {meetingRecords.map((meeting, index) => (
+                <tr key={index}>
+                  <td>{new Date(meeting.meeting_time).toLocaleString()}</td> {/* Format the date */}
+                  <td>{meeting.meeting_type}</td>
+                  <td>{meeting.room_name}</td>
+                  <td>{meeting.topic || "N/A"}</td> {/* Show "N/A" if topic is null */}
+                  <td>{meeting.description || "N/A"}</td> {/* Show "N/A" if description is null */}
+                  <td>{meeting.decision || "N/A"}</td> {/* Show "N/A" if decision is null */}
+                  <td>{meeting.department_name}</td>
+                  <td>{meeting.faculty}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <hr />
     </div>
   );
 };
