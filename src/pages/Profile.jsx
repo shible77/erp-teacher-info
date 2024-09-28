@@ -13,6 +13,7 @@ import Modal from "@mui/material/Modal";
 import ChildModal from "../modal/ChildModal"; // Import ChildModal component
 import axios from "axios";
 import UploadModal from "../modal/UploadModal";
+import DeleteModal from "../modal/DeleteModal";
 import ConfirmationDialog from "../components/sidebar/ConfirmationDialog";
 import { convertLength } from "@mui/material/styles/cssUtils";
 
@@ -23,6 +24,19 @@ function Profile() {
   const token = "a1364cc9-7d52-11ef-ae14-3c5282764ceb";
   const [showModal, setShowModal] = useState(false);
   const [profileImage, setProfileImage] = useState(TeacherImage);
+  const [data, setData] = useState(null)
+  const [flag, setFlag] = useState(0)
+  const [showDelModal, setShowDelModal] = useState(false)
+
+  const myDelClick = (index, flag) => {
+    setData(index);
+    setFlag(flag);
+    setShowDelModal(true)
+  }
+
+  const closeDelModal = () => {
+    setShowDelModal(false)
+  }
 
   const handleEdit = (index) => {
     // Handle edit action
@@ -33,23 +47,16 @@ function Profile() {
   const [showDialog, setShowDialog] = useState(false);
   const [deleteIndex, setDeleteIndex] = useState(null);
 
-  const handleDeleteClick = (index) => {
-    setDeleteIndex(index);
+  const handleDeleteClick = () => {
+    
     setShowDialog(true);
   };
 
   const handleConfirmDelete = () => {
-    if (deleteIndex !== null) {
-      // Perform delete operation here
-      console.log(`Delete item at index ${deleteIndex}`);
-      // Reset state
-      setDeleteIndex(null);
-    }
     setShowDialog(false);
   };
 
   const handleCancelDelete = () => {
-    setDeleteIndex(null);
     setShowDialog(false);
   };
 
@@ -161,7 +168,7 @@ function Profile() {
                         />
                         <FaTrashAlt
                           className="delete-icon"
-                          onClick={() => handleDeleteClick(index)}
+                          onClick={() => myDelClick(edu, 1)}
                         />
                       </span>
                     </li>
@@ -174,6 +181,8 @@ function Profile() {
               show={showDialog}
               onClose={handleCancelDelete}
               onConfirm={handleConfirmDelete}
+              flag={flag}
+              data={data}
             />
 
             {teacherInfo && (
@@ -198,7 +207,7 @@ function Profile() {
                         />
                         <FaTrashAlt
                           className="delete-icon"
-                          onClick={() => handleDeleteClick(index)}
+                          onClick={() => myDelClick(exp, 2)}
                         />
                       </span>
                     </li>
@@ -234,7 +243,7 @@ function Profile() {
                         />
                         <FaTrashAlt
                           className="delete-icon"
-                          onClick={() => handleDeleteClick(index)}
+                          onClick={() => myDelClick(exp, 3)}
                         />
                       </span>
                     </li>
@@ -321,7 +330,7 @@ function Profile() {
                         />
                         <FaTrashAlt
                           className="delete-icon"
-                          onClick={() => handleDeleteClick(index)}
+                          onClick={() => myDelClick(award, 4)}
                         />
                       </span>
                     </li>
@@ -360,7 +369,7 @@ function Profile() {
                           />
                           <FaTrashAlt
                             className="delete-icon"
-                            onClick={() => handleDeleteClick(index)}
+                            onClick={() => myDelClick(scholarship, 5)}
                           />
                         </span>
                       </li>
@@ -524,7 +533,7 @@ function Profile() {
                         />
                         <FaTrashAlt
                           className="delete-icon"
-                          onClick={() => handleDeleteClick(index)}
+                          onClick={() => myDelClick(accomplishment, 6)}
                         />
                       </span>
                     </li>
@@ -560,7 +569,7 @@ function Profile() {
                           />
                           <FaTrashAlt
                             className="delete-icon"
-                            onClick={() => handleDeleteClick(index)}
+                            onClick={() => myDelClick(training, 7)}
                           />
                         </span>
                       </li>
@@ -601,7 +610,7 @@ function Profile() {
                         />
                         <FaTrashAlt
                           className="delete-icon"
-                          onClick={() => handleDeleteClick(index)}
+                          onClick={() => myDelClick(pub, 8)}
                         />
                       </span>
                     </li>
@@ -637,7 +646,7 @@ function Profile() {
                         />
                         <FaTrashAlt
                           className="delete-icon"
-                          onClick={() => handleDeleteClick(index)}
+                          onClick={() => myDelClick(journal, 9)}
                         />
                       </span>
                     </li>
@@ -713,7 +722,7 @@ function Profile() {
     <div className="continer">
       <div className="header">
         <div className="left-container">
-          <div className="unilogo">CSECU</div>
+          <div className="unilogo">CU</div>
           <div className="separator"></div>
           <div className="header-text">PROFILES</div>
         </div>
@@ -773,13 +782,20 @@ function Profile() {
               {teacherInfo.personal_info.designation} of Computer Science and
               Engineering, University of Chittagong
             </div>
-            <div className="email">Email: rudra@cu.ac.bd</div>
+            <div className="email">Email: {teacherInfo.personal_info.email}</div>
           </div>
         )}
         <UploadModal
           show={showModal}
           onClose={handleCloseModal}
           onUpload={handleUpload}
+        />
+        <DeleteModal 
+        show={showDelModal}
+        onClose={closeDelModal}
+        flag={flag}
+        data={data}
+        session_token={token}
         />
       </div>
       <div className="content-container">
