@@ -16,6 +16,15 @@ import UploadModal from "../modal/UploadModal";
 import DeleteModal from "../modal/DeleteModal";
 import ConfirmationDialog from "../components/sidebar/ConfirmationDialog";
 import { convertLength } from "@mui/material/styles/cssUtils";
+import EditEducationModal from "../editModal/EditEducation";
+import EditProfessionalModal from "../editModal/EditProfession";
+import EditAdministrativeModal from "../editModal/EditAdministrative";
+import EditAwardModal from "../editModal/EditAward";
+import EditScholarshipModal from "../editModal/EditScholarship";
+import EditAccomplishmentModal from "../editModal/EditAccomplishment";
+import EditTrainingModal from "../editModal/EditTraining";
+import EditPublicationModal from "../editModal/EditPublication";
+import EditJournalModal from "../editModal/EditJournal";
 
 function Profile() {
   const [activeContent, setActiveContent] = useState("bio");
@@ -24,31 +33,31 @@ function Profile() {
   const token = "a1364cc9-7d52-11ef-ae14-3c5282764ceb";
   const [showModal, setShowModal] = useState(false);
   const [profileImage, setProfileImage] = useState(TeacherImage);
-  const [data, setData] = useState(null)
-  const [flag, setFlag] = useState(0)
-  const [showDelModal, setShowDelModal] = useState(false)
+  const [data, setData] = useState(null);
+  const [flag, setFlag] = useState(0);
+  const [showDelModal, setShowDelModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [currentEditData, setCurrentEditData] = useState(null);
+  const [editFlag, setEditFlag] = useState(null); // Tracks the flag to identify type of edit
+  const [editUserId, setEditUserId] = useState(null); // Tracks the flag to identify type of edit
+  const [editTeacherId, setEditTeacherId] = useState(null); // Tracks the flag to identify type of edit
 
   const myDelClick = (index, flag) => {
     setData(index);
     setFlag(flag);
-    setShowDelModal(true)
-  }
-
-  const closeDelModal = () => {
-    setShowDelModal(false)
-  }
-
-  const handleEdit = (index) => {
-    // Handle edit action
-    console.log(`Edit item at index ${index}`);
+    setShowDelModal(true);
   };
 
+  const closeDelModal = () => {
+    setShowDelModal(false);
+  };
+
+  
   //Handling teacher's information delete
   const [showDialog, setShowDialog] = useState(false);
   const [deleteIndex, setDeleteIndex] = useState(null);
 
   const handleDeleteClick = () => {
-    
     setShowDialog(true);
   };
 
@@ -78,8 +87,8 @@ function Profile() {
       .post("http://localhost:5000/api/upload/image", formData)
       .then((response) => {
         setProfileImage(`http://localhost:5000/${response.data.image.path}`);
-        console.log(response.data)
-        console.log(response.data.image.path)
+        console.log(response.data);
+        console.log(response.data.image.path);
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -119,6 +128,47 @@ function Profile() {
   useEffect(() => {
     fetchData();
   }, []);
+
+  const handleEdit = (index, flag) => {
+    let editData = null;
+
+    if (flag === "education") {
+      editData = teacherInfo.education[index];
+    } 
+    else if (flag === "professional_experience") {
+      editData = teacherInfo.professional_experience[index];
+    } else if (flag === "administrative_experience") {
+      editData = teacherInfo.administrative_experience[index];
+    }
+    else if (flag === "award") {
+      editData = teacherInfo.award[index];
+    } else if (flag === "scholarship_and_fellowship") {
+      editData = teacherInfo.scholarship_and_fellowship[index];
+    }
+    else if (flag === "accomplishment") {
+      editData = teacherInfo.accomplishment[index];
+    } else if (flag === "training_and_certification") {
+      editData = teacherInfo.training_and_certification[index];
+    }
+    else if (flag === "publication") {
+      editData = teacherInfo.publication[index];
+    } else if (flag === "journal") {
+      editData = teacherInfo.journal[index];
+    }
+    setEditTeacherId(teacherInfo.personal_info.teacher_id)
+    setEditUserId(teacherInfo.personal_info.user_id)
+    setCurrentEditData(editData); // Set the selected item data
+    setEditFlag(flag); // Set the flag
+    setShowEditModal(true); // Show the edit modal
+  };
+
+  // Function to close the modal
+  const closeEditModal = () => {
+    setShowEditModal(false);
+    setCurrentEditData(null);
+    setEditFlag(null);
+  };
+
 
   // console.log(teacherInfo);
   const renderContent = () => {
@@ -164,7 +214,7 @@ function Profile() {
                       <span className="action-icons">
                         <FaEdit
                           className="edit-icon"
-                          onClick={() => handleEdit(index)}
+                          onClick={() => handleEdit(index, "education")}
                         />
                         <FaTrashAlt
                           className="delete-icon"
@@ -185,6 +235,11 @@ function Profile() {
               data={data}
             />
 
+            {/* Render Edit Modal for Education */}
+            {showEditModal && editFlag === "education" && (
+              <EditEducationModal data={currentEditData} onClose={closeEditModal} userId={editUserId} session_token={token}/>
+            )}
+
             {teacherInfo && (
               <div className="subsub-content">
                 <h2 className="section-heading">Professional Experience</h2>
@@ -203,7 +258,7 @@ function Profile() {
                       <span className="action-icons">
                         <FaEdit
                           className="edit-icon"
-                          onClick={() => handleEdit(index)}
+                          onClick={() => handleEdit(index, "professional_experience")}
                         />
                         <FaTrashAlt
                           className="delete-icon"
@@ -220,7 +275,13 @@ function Profile() {
               show={showDialog}
               onClose={handleCancelDelete}
               onConfirm={handleConfirmDelete}
+              flag={flag}
+              data={data}
             />
+
+            {showEditModal && editFlag === "professional_experience" && (
+              <EditProfessionalModal data={currentEditData} onClose={closeEditModal} teacherId={editTeacherId} session_token={token}/>
+            )}
 
             {teacherInfo && (
               <div className="subsub-content">
@@ -239,7 +300,7 @@ function Profile() {
                       <span className="action-icons">
                         <FaEdit
                           className="edit-icon"
-                          onClick={() => handleEdit(index)}
+                          onClick={() => handleEdit(index, "administrative_experience")}
                         />
                         <FaTrashAlt
                           className="delete-icon"
@@ -256,7 +317,12 @@ function Profile() {
               show={showDialog}
               onClose={handleCancelDelete}
               onConfirm={handleConfirmDelete}
+              flag={flag}
+              data={data}
             />
+            {showEditModal && editFlag === "administrative_experience" && (
+              <EditAdministrativeModal data={currentEditData} onClose={closeEditModal} teacherId={editTeacherId} session_token={token}/>
+            )}
 
             <div className="subsub-content">
               <h2 className="section-heading">Experience on Social Welfare</h2>
@@ -326,7 +392,7 @@ function Profile() {
                       <span className="action-icons">
                         <FaEdit
                           className="edit-icon"
-                          onClick={() => handleEdit(index)}
+                          onClick={() => handleEdit(index, "award")}
                         />
                         <FaTrashAlt
                           className="delete-icon"
@@ -343,7 +409,12 @@ function Profile() {
               show={showDialog}
               onClose={handleCancelDelete}
               onConfirm={handleConfirmDelete}
+              flag={flag}
+              data={data}
             />
+            {showEditModal && editFlag === "award" && (
+              <EditAwardModal data={currentEditData} onClose={closeEditModal} teacherId={editTeacherId} session_token={token}/>
+            )}
 
             {teacherInfo && (
               <div className="subsub-content">
@@ -365,7 +436,7 @@ function Profile() {
                         <span className="action-icons">
                           <FaEdit
                             className="edit-icon"
-                            onClick={() => handleEdit(index)}
+                            onClick={() => handleEdit(index, "scholarship_and_fellowship")}
                           />
                           <FaTrashAlt
                             className="delete-icon"
@@ -383,7 +454,12 @@ function Profile() {
               show={showDialog}
               onClose={handleCancelDelete}
               onConfirm={handleConfirmDelete}
+              flag={flag}
+              data={data}
             />
+            {showEditModal && editFlag === "scholarship_and_fellowship" && (
+              <EditScholarshipModal data={currentEditData} onClose={closeEditModal} teacherId={editTeacherId} session_token={token}/>
+            )}
 
             <div className="subsub-content">
               <h2 className="section-heading">Professional Responsibilities</h2>
@@ -529,7 +605,7 @@ function Profile() {
                       <span className="action-icons">
                         <FaEdit
                           className="edit-icon"
-                          onClick={() => handleEdit(index)}
+                          onClick={() => handleEdit(index, "accomplishment")}
                         />
                         <FaTrashAlt
                           className="delete-icon"
@@ -546,7 +622,12 @@ function Profile() {
               show={showDialog}
               onClose={handleCancelDelete}
               onConfirm={handleConfirmDelete}
+              flag={flag}
+              data={data}
             />
+            {showEditModal && editFlag === "accomplishment" && (
+              <EditAccomplishmentModal data={currentEditData} onClose={closeEditModal} teacherId={editTeacherId} session_token={token}/>
+            )}
 
             {teacherInfo && (
               <div className="subsub-content">
@@ -565,7 +646,7 @@ function Profile() {
                         <span className="action-icons">
                           <FaEdit
                             className="edit-icon"
-                            onClick={() => handleEdit(index)}
+                            onClick={() => handleEdit(index, "training_and_certification")}
                           />
                           <FaTrashAlt
                             className="delete-icon"
@@ -583,7 +664,12 @@ function Profile() {
               show={showDialog}
               onClose={handleCancelDelete}
               onConfirm={handleConfirmDelete}
+              flag={flag}
+              data={data}
             />
+            {showEditModal && editFlag === "training_and_certification" && (
+              <EditTrainingModal data={currentEditData} onClose={closeEditModal} teacherId={editTeacherId} session_token={token}/>
+            )}
           </div>
         );
       case "publications":
@@ -606,7 +692,7 @@ function Profile() {
                       <span className="action-icons">
                         <FaEdit
                           className="edit-icon"
-                          onClick={() => handleEdit(index)}
+                          onClick={() => handleEdit(index, "publication")}
                         />
                         <FaTrashAlt
                           className="delete-icon"
@@ -623,7 +709,12 @@ function Profile() {
               show={showDialog}
               onClose={handleCancelDelete}
               onConfirm={handleConfirmDelete}
+              flag={flag}
+              data={data}
             />
+            {showEditModal && editFlag === "publication" && (
+              <EditPublicationModal data={currentEditData} onClose={closeEditModal} teacherId={editTeacherId} session_token={token}/>
+            )}
 
             {teacherInfo && (
               <div className="subsub-content">
@@ -642,7 +733,7 @@ function Profile() {
                       <span className="action-icons">
                         <FaEdit
                           className="edit-icon"
-                          onClick={() => handleEdit(index)}
+                          onClick={() => handleEdit(index, "journal")}
                         />
                         <FaTrashAlt
                           className="delete-icon"
@@ -659,7 +750,12 @@ function Profile() {
               show={showDialog}
               onClose={handleCancelDelete}
               onConfirm={handleConfirmDelete}
+              flag={flag}
+              data={data}
             />
+            {showEditModal && editFlag === "journal" && (
+              <EditJournalModal data={currentEditData} onClose={closeEditModal} teacherId={editTeacherId} session_token={token}/>
+            )}
 
             <div className="subsub-content">
               <h2 className="section-heading">Conference & Research Seminar</h2>
@@ -782,7 +878,9 @@ function Profile() {
               {teacherInfo.personal_info.designation} of Computer Science and
               Engineering, University of Chittagong
             </div>
-            <div className="email">Email: {teacherInfo.personal_info.email}</div>
+            <div className="email">
+              Email: {teacherInfo.personal_info.email}
+            </div>
           </div>
         )}
         <UploadModal
@@ -790,12 +888,12 @@ function Profile() {
           onClose={handleCloseModal}
           onUpload={handleUpload}
         />
-        <DeleteModal 
-        show={showDelModal}
-        onClose={closeDelModal}
-        flag={flag}
-        data={data}
-        session_token={token}
+        <DeleteModal
+          show={showDelModal}
+          onClose={closeDelModal}
+          flag={flag}
+          data={data}
+          session_token={token}
         />
       </div>
       <div className="content-container">
