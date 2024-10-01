@@ -8,7 +8,7 @@ import Courses from "./pages/Courses";
 import Classes from "./pages/Classes";
 import Evaluations from "./pages/Evaluations";
 function App() {
-  const token = sessionStorage.getItem("token") || "22cbe6cd-7ff8-11ef-a4ca-3c5282764ceb";
+  const token = "a2eb0293-8014-11ef-a4ca-3c5282764ceb";
   return (
     <Router>
       <SideBar>
