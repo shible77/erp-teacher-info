@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 const Dashboard = () => {
-  const token = "a1364cc9-7d52-11ef-ae14-3c5282764ceb";
+  const token = "a1364cc9-7d52-11ef-ae14-3c5282764ceb"; // should come from portal
   const [record, setRecord] = useState([]);
   const [teacherInfo, setTeacherInfo] = useState(null);
   const [coursePublication, setCoursePublication] = useState(null);

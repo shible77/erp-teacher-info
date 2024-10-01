@@ -20,7 +20,7 @@ const DeleteModal = ({ show, onClose, flag, data, session_token }) => {
         year: data.education_from_year,
       }
     }).then(res => {
-        console.log(res.data)
+        // console.log(res.data)
     }).catch(err => {
         console.log(err.message)
     })
@@ -36,7 +36,7 @@ const DeleteModal = ({ show, onClose, flag, data, session_token }) => {
           year: data.professional_experience_year,
         }
       }).then(res => {
-          console.log(res.data)
+          // console.log(res.data)
       }).catch(err => {
           console.log(err.message)
       })
@@ -52,7 +52,7 @@ const DeleteModal = ({ show, onClose, flag, data, session_token }) => {
           year: data.administrative_experinece_year,
         }
       }).then(res => {
-          console.log(res.data)
+          // console.log(res.data)
       }).catch(err => {
           console.log(err.message)
       })
@@ -68,7 +68,7 @@ const DeleteModal = ({ show, onClose, flag, data, session_token }) => {
           year: data.award_year,
         }
       }).then(res => {
-          console.log(res.data)
+          // console.log(res.data)
       }).catch(err => {
           console.log(err.message)
       })
@@ -84,7 +84,7 @@ const DeleteModal = ({ show, onClose, flag, data, session_token }) => {
           year: data.scholarship_from_year,
         }
       }).then(res => {
-          console.log(res.data)
+          // console.log(res.data)
       }).catch(err => {
           console.log(err.message)
       })
@@ -99,7 +99,7 @@ const DeleteModal = ({ show, onClose, flag, data, session_token }) => {
           title: data.acomplishment_title
         }
       }).then(res => {
-          console.log(res.data)
+          // console.log(res.data)
       }).catch(err => {
           console.log(err.message)
       })
@@ -115,7 +115,7 @@ const DeleteModal = ({ show, onClose, flag, data, session_token }) => {
           year: data.training_year
         }
       }).then(res => {
-          console.log(res.data)
+          // console.log(res.data)
       }).catch(err => {
           console.log(err.message)
       })
@@ -131,7 +131,7 @@ const DeleteModal = ({ show, onClose, flag, data, session_token }) => {
           year: data.publication_year
         }
       }).then(res => {
-          console.log(res.data)
+          // console.log(res.data)
       }).catch(err => {
           console.log(err.message)
       })
@@ -147,7 +147,7 @@ const DeleteModal = ({ show, onClose, flag, data, session_token }) => {
           year: data.journal_year
         }
       }).then(res => {
-          console.log(res.data)
+          // console.log(res.data)
       }).catch(err => {
           console.log(err.message)
       })
