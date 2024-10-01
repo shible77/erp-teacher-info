@@ -1,7 +1,6 @@
 import React from "react";
 import "../css/CoursesUpcomings.css"; // Import CSS file for styling
-
-function Evaluations() {
+function Evaluations({ token }) {
   return (
     <div className="container">
       <div className="inner-container">

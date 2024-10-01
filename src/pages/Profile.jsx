@@ -26,11 +26,11 @@ import EditTrainingModal from "../editModal/EditTraining";
 import EditPublicationModal from "../editModal/EditPublication";
 import EditJournalModal from "../editModal/EditJournal";
 
-function Profile() {
+function Profile({ token }) {
+  const [currentUser, setCurrentUser] = useState();
   const [activeContent, setActiveContent] = useState("bio");
   const [open, setOpen] = React.useState(false);
-  const [teacherInfo, setTeacherInfo] = useState(null);
-  const token = "a1364cc9-7d52-11ef-ae14-3c5282764ceb";
+  const [teacherInfo, setTeacherInfo] = useState(null); 
   const [showModal, setShowModal] = useState(false);
   const [profileImage, setProfileImage] = useState(TeacherImage);
   const [data, setData] = useState(null);
@@ -42,6 +42,21 @@ function Profile() {
   const [editUserId, setEditUserId] = useState(null); // Tracks the flag to identify type of edit
   const [editTeacherId, setEditTeacherId] = useState(null); // Tracks the flag to identify type of edit
 
+  useEffect(() => {
+    const fetchCurrentUser = () => {
+      axios.get('http://localhost:5000/api/user', {
+        headers: {
+          Authorization: `Bearer ${token}`, // Correct template literal for the Bearer token
+        },
+      }).then(res => {
+        setCurrentUser(res.data);
+        // console.log(res.data);
+      }).catch(err => {
+        console.log(err.message);
+      });
+    }
+    fetchCurrentUser();
+  }, []);
   const myDelClick = (index, flag) => {
     setData(index);
     setFlag(flag);
@@ -111,8 +126,9 @@ function Profile() {
     setActiveContent(content);
   };
   const fetchData = () => {
+    if (currentUser && currentUser.teacher_id) {
     axios
-      .get("http://localhost:5000/api/teacher/12345679", {
+      .get(`http://localhost:5000/api/teacher/${currentUser.teacher_id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -123,11 +139,12 @@ function Profile() {
       .catch((error) => {
         console.log(error);
       });
+    }
   };
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [currentUser, token]);
 
   const handleEdit = (index, flag) => {
     let editData = null;

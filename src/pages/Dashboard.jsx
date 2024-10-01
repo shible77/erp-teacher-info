@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-const Dashboard = () => {
-  const token = "a1364cc9-7d52-11ef-ae14-3c5282764ceb"; // should come from portal
+const Dashboard = ({ token }) => {
   const [currentUser, setCurrentUser] = useState();
   const [record, setRecord] = useState([]);
   const [teacherInfo, setTeacherInfo] = useState(null);
@@ -53,11 +52,7 @@ const Dashboard = () => {
   
       const fetchTeacherInfo = () => {
         return axios
-          .get(`http://localhost:5000/api/teacher/${currentUser.teacher_id}`, {
-            headers: {
-              Authorization: `Bearer ${token}`, // Correct template literal for the Bearer token
-            },
-          })
+          .get(`http://localhost:5000/api/teacher/${currentUser.teacher_id}`)
           .then((res) => res.data)
           .catch((error) => {
             console.error("Error fetching teacher info:", error);

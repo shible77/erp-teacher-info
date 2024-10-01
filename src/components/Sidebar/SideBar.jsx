@@ -26,7 +26,7 @@ const routes = [
     icon: <MdEvent />,
     subRoutes: [
       {
-        path: "/classes",
+        path: `/classes`,
         name: "Classes",
         icon: <IoSchoolOutline />,
       },
@@ -47,7 +47,7 @@ const routes = [
 const SideBar = ({ children }) => {
   const [isOpen, setIsOpen] = useState(true);
   const toggle = () => setIsOpen(!isOpen);
-
+  
   const showAnimation = {
     hidden: {
       width: 0,
@@ -116,8 +116,9 @@ const SideBar = ({ children }) => {
               <NavLink
                 to={route.path}
                 key={index}
-                className="link"
-                activeClassName="active"
+                // className="link"
+                // activeClassName="active"
+                className={({ isActive }) => (isActive ? "active link" : "link")}
               >
                 <div className="icon">{route.icon}</div>
                 <AnimatePresence>
