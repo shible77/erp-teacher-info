@@ -3,123 +3,143 @@ import axios from "axios";
 
 const Dashboard = () => {
   const token = "a1364cc9-7d52-11ef-ae14-3c5282764ceb"; // should come from portal
+  const [currentUser, setCurrentUser] = useState();
   const [record, setRecord] = useState([]);
   const [teacherInfo, setTeacherInfo] = useState(null);
   const [coursePublication, setCoursePublication] = useState(null);
-
+  
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
+  
   const [examCommitteeRecords, setExamCommitteeRecords] = useState([]); // New state for exam committee records
   const [meetingRecords, setMeetingRecords] = useState([]); // New state for meeting records
-
+  
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          "http://localhost:5000/api/teacher/courses/12345679",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        setRecord(response.data);
-      } catch (error) {
-        console.error("Error fetching courses:", error);
-        setError(error.message);
-      }
-    };
-
-
-    const fetchTeacherInfo = () => {
-      return axios
-        .get("http://localhost:5000/api/teacher/12345679", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        .then((res) => res.data)
-        .catch((error) => {
-          console.error("Error fetching teacher info:", error);
-          throw error;
-        });
-    };
-
-    const fetchCourseCount = () => {
-      return axios
-        .get("http://localhost:5000/api/teacher/teacher-stats/12345679", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        .then((res) => res.data)
-        .catch((error) => {
-          console.error("Error fetching course count:", error);
-          throw error;
-        });
-    };
-
-    const fetchExamCommitteeRecords = async () => {
-      try {
-        const response = await axios.get(
-          "http://localhost:5000/api/teacher/exam-committee/12345679",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        setExamCommitteeRecords(response.data); // Set the fetched exam committee records
-      } catch (error) {
-        console.error("Error fetching exam committee records:", error);
-        setError(error.message);
-      }
-    };
-
-    const fetchMeetingRecords = async () => {
-      try {
-        const response = await axios.get(
-          "http://localhost:5000/api/teacher/meetings/12345679", // Update with the correct API endpoint
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        setMeetingRecords(response.data); // Set the fetched meeting records
-      } catch (error) {
-        console.error("Error fetching meeting records:", error);
-        setError(error.message);
-      }
-    };
-
-    const loadData = async () => {
-      try {
-        await fetchData();
-
-        const [teacherInfoData, courseCountData] = await Promise.all([
-          fetchTeacherInfo(),
-          fetchCourseCount(),
-        ]);
-
-        setTeacherInfo(teacherInfoData);
-        setCoursePublication(courseCountData);
-
-        // Fetch exam committee records
-        await fetchExamCommitteeRecords();
-
-        // Fetch meeting records
-        await fetchMeetingRecords();
-      } catch (error) {
-        setError(error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadData();
+    const fetchCurrentUser = () => {
+      axios.get('http://localhost:5000/api/user', {
+        headers: {
+          Authorization: `Bearer ${token}`, // Correct template literal for the Bearer token
+        },
+      }).then(res => {
+        setCurrentUser(res.data);
+        // console.log(res.data);
+      }).catch(err => {
+        console.log(err.message);
+      });
+    }
+    fetchCurrentUser();
   }, []);
+  
+  useEffect(() => {
+    // Proceed only if `currentUser` is defined
+    if (currentUser && currentUser.teacher_id) {
+      
+      const fetchData = async () => {
+        try {
+          const response = await axios.get(
+            `http://localhost:5000/api/teacher/courses/${currentUser.teacher_id}`,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`, // Correct template literal for the Bearer token
+              },
+            }
+          );
+          setRecord(response.data);
+        } catch (error) {
+          console.error("Error fetching courses:", error);
+          setError(error.message);
+        }
+      };
+  
+      const fetchTeacherInfo = () => {
+        return axios
+          .get(`http://localhost:5000/api/teacher/${currentUser.teacher_id}`, {
+            headers: {
+              Authorization: `Bearer ${token}`, // Correct template literal for the Bearer token
+            },
+          })
+          .then((res) => res.data)
+          .catch((error) => {
+            console.error("Error fetching teacher info:", error);
+            throw error;
+          });
+      };
+  
+      const fetchCourseCount = () => {
+        return axios
+          .get(`http://localhost:5000/api/teacher/teacher-stats/${currentUser.teacher_id}`, {
+            headers: {
+              Authorization: `Bearer ${token}`, // Correct template literal for the Bearer token
+            },
+          })
+          .then((res) => res.data)
+          .catch((error) => {
+            console.error("Error fetching course count:", error);
+            throw error;
+          });
+      };
+  
+      const fetchExamCommitteeRecords = async () => {
+        try {
+          const response = await axios.get(
+            `http://localhost:5000/api/teacher/exam-committee/${currentUser.teacher_id}`,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`, // Correct template literal for the Bearer token
+              },
+            }
+          );
+          setExamCommitteeRecords(response.data); // Set the fetched exam committee records
+        } catch (error) {
+          console.error("Error fetching exam committee records:", error);
+          setError(error.message);
+        }
+      };
+  
+      const fetchMeetingRecords = async () => {
+        try {
+          const response = await axios.get(
+            `http://localhost:5000/api/teacher/meetings/${currentUser.teacher_id}`, // Update with the correct API endpoint
+            {
+              headers: {
+                Authorization: `Bearer ${token}`, // Correct template literal for the Bearer token
+              },
+            }
+          );
+          setMeetingRecords(response.data); // Set the fetched meeting records
+        } catch (error) {
+          console.error("Error fetching meeting records:", error);
+          setError(error.message);
+        }
+      };
+  
+      const loadData = async () => {
+        try {
+          await fetchData();
+  
+          const [teacherInfoData, courseCountData] = await Promise.all([
+            fetchTeacherInfo(),
+            fetchCourseCount(),
+          ]);
+  
+          setTeacherInfo(teacherInfoData);
+          setCoursePublication(courseCountData);
+  
+          // Fetch exam committee records
+          await fetchExamCommitteeRecords();
+  
+          // Fetch meeting records
+          await fetchMeetingRecords();
+        } catch (error) {
+          setError(error.message);
+        } finally {
+          setLoading(false);
+        }
+      };
+      loadData();
+    }
+  }, [currentUser, token]); // Add `currentUser` as a dependency
+  
 
   if (loading) {
     return <div>Loading...</div>;
