@@ -14,7 +14,7 @@ import ChildModal from "../modal/ChildModal"; // Import ChildModal component
 import axios from "axios";
 import UploadModal from "../modal/UploadModal";
 import DeleteModal from "../modal/DeleteModal";
-import ConfirmationDialog from "../components/sidebar/ConfirmationDialog";
+import ConfirmationDialog from "../components/Sidebar/ConfirmationDialog";
 import { convertLength } from "@mui/material/styles/cssUtils";
 import EditEducationModal from "../editModal/EditEducation";
 import EditProfessionalModal from "../editModal/EditProfession";
@@ -30,7 +30,7 @@ function Profile({ token }) {
   const [currentUser, setCurrentUser] = useState();
   const [activeContent, setActiveContent] = useState("bio");
   const [open, setOpen] = React.useState(false);
-  const [teacherInfo, setTeacherInfo] = useState(null); 
+  const [teacherInfo, setTeacherInfo] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [profileImage, setProfileImage] = useState(TeacherImage);
   const [data, setData] = useState(null);
@@ -57,6 +57,7 @@ function Profile({ token }) {
     }
     fetchCurrentUser();
   }, []);
+
   const myDelClick = (index, flag) => {
     setData(index);
     setFlag(flag);
@@ -125,6 +126,7 @@ function Profile({ token }) {
   const handleButtonClick = (content) => {
     setActiveContent(content);
   };
+  
   const fetchData = () => {
     if (currentUser && currentUser.teacher_id) {
     axios

@@ -2,12 +2,11 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "../css/CoursesUpcomings.css"; // Import CSS file for styling
 
-function Courses({ token }) {
+function Meeting({ token }) {
   const [currentUser, setCurrentUser] = useState();
-  const [record, setRecord] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  
+  const [meetingRecords, setMeetingRecords] = useState([]); // New state for meeting records
 
   useEffect(() => {
     const fetchCurrentUser = () => {
@@ -31,26 +30,27 @@ function Courses({ token }) {
   useEffect(() => {
     // Proceed only if `currentUser` is defined
     if (currentUser && currentUser.teacher_id) {
-      const fetchData = async () => {
+      const fetchMeetingRecords = async () => {
         try {
           const response = await axios.get(
-            `http://localhost:5000/api/teacher/courses/${currentUser.teacher_id}`,
+            `http://localhost:5000/api/teacher/meetings/${currentUser.teacher_id}`, // Update with the correct API endpoint
             {
               headers: {
                 Authorization: `Bearer ${token}`, // Correct template literal for the Bearer token
               },
             }
           );
-          setRecord(response.data);
+          setMeetingRecords(response.data); // Set the fetched meeting records
         } catch (error) {
-          console.error("Error fetching courses:", error);
+          console.error("Error fetching meeting records:", error);
           setError(error.message);
         }
       };
 
       const loadData = async () => {
         try {
-          await fetchData();
+          // Fetch meeting records
+          await fetchMeetingRecords();
         } catch (error) {
           setError(error.message);
         } finally {
@@ -72,36 +72,27 @@ function Courses({ token }) {
   return (
     <div className="col main ml-15 mt-2">
       <div className="inner-container">
-        <h4 className="heading">Filter Courses</h4>
+        <h4 className="heading">Filter Meetings</h4>
         <div className="mb-3 row">
           <div className="col">
             <label htmlFor="startDate" className="form-label">
               Started Date
             </label>
-            <input
-              type="datetime-local"
-              className="form-control"
-              id="startDate"
-            />
+            <input type="date" className="form-control" id="startDate" />
           </div>
           <div className="col">
-            <label htmlFor="endDate" className="form-label">
-              Ended Date
+            <label htmlFor="startTime" className="form-label">
+              Started Time
             </label>
-            <input
-              type="datetime-local"
-              className="form-control"
-              id="endDate"
-            />
+            <input type="time" className="form-control" id="startTime" />
           </div>
         </div>
         <button type="submit" class="btn btn-light">
           Submit
         </button>
       </div>
-
       <div className="inner-container">
-        <h4 className="heading">Course Records</h4>
+        <h4 className="heading">Meeting Records</h4>
         <div className="row mb-3">
           <div className="col-auto">
             <label htmlFor="showEntries" className="form-label">
@@ -125,32 +116,32 @@ function Courses({ token }) {
         <table class="table table-striped table-hover">
           <thead>
             <tr>
-              <th scope="col">Course Code</th>
-              <th scope="col">Course Title</th>
-              <th scope="col">Credit</th>
-              <th scope="col">Course Type</th>
-              <th scope="col">Exam Duration</th>
-              <th scope="col">Session</th>
-              <th scope="col">Semester</th>
-              <th scope="col">Department</th>
+              <th scope="col">Meeting Time</th>
+              <th scope="col">Meeting Type</th>
+              <th scope="col">Room Name</th>
+              <th scope="col">Topic</th>
+              <th scope="col">Description</th>
+              <th scope="col">Decision</th>
+              <th scope="col">Department Name</th>
               <th scope="col">Faculty</th>
-              <th scope="col">Program Abbreviation</th>
               <th scope="col">Action to Change</th>
             </tr>
           </thead>
           <tbody>
-            {record.map((course) => (
-              <tr key={course.course_code}>
-                <td>{course.course_code}</td>
-                <td>{course.course_title}</td>
-                <td>{course.credit}</td>
-                <td>{course.course_type}</td>
-                <td>{course.exam_minutes}</td>
-                <td>{course.session}</td>
-                <td>{course.semester}</td>
-                <td>{course.department_name}</td>
-                <td>{course.faculty}</td>
-                <td>{course.program_abbr}</td>
+            {meetingRecords.map((meeting, index) => (
+              <tr key={index}>
+                <td>{new Date(meeting.meeting_time).toLocaleString()}</td>{" "}
+                {/* Format the date */}
+                <td>{meeting.meeting_type}</td>
+                <td>{meeting.room_name}</td>
+                <td>{meeting.topic || "N/A"}</td>{" "}
+                {/* Show "N/A" if topic is null */}
+                <td>{meeting.description || "N/A"}</td>{" "}
+                {/* Show "N/A" if description is null */}
+                <td>{meeting.decision || "N/A"}</td>{" "}
+                {/* Show "N/A" if decision is null */}
+                <td>{meeting.department_name}</td>
+                <td>{meeting.faculty}</td>
                 <td>
                   <button type="button" class="btn btn-danger btn-sm">
                     Delete
@@ -199,4 +190,4 @@ function Courses({ token }) {
   );
 }
 
-export default Courses;
+export default Meeting;

@@ -1,9 +1,9 @@
 import { NavLink } from "react-router-dom";
-import { FaBars, FaUser, FaBook } from "react-icons/fa";
-import { MdEventBusy, MdEvent } from "react-icons/md";
+import { FaBars, FaUser, FaBook,FaExternalLinkAlt,FaRegCalendarCheck ,FaMoneyCheckAlt   } from "react-icons/fa";
+import { MdEventBusy, MdEvent,MdOpenInNew,MdEdit,MdMeetingRoom,MdAssignment,MdGroup,MdSchool ,MdRecordVoiceOver     } from "react-icons/md";
 import { BiCalendarEvent, BiTask } from "react-icons/bi";
 import { IoSchoolOutline } from "react-icons/io5";
-import { RiDashboardFill } from "react-icons/ri";
+import { RiDashboardFill ,RiFileEditFill,RiExternalLinkLine } from "react-icons/ri";
 import { AiOutlineMessage } from "react-icons/ai";
 import { BsFileText } from "react-icons/bs";
 import { useState } from "react";
@@ -17,23 +17,59 @@ const routes = [
     icon: <RiDashboardFill />,
   },
   {
-    path: "/courses",
-    name: "Courses",
-    icon: <FaBook />,
-  },
-  {
-    name: "Upcomings",
+    name: "Records",
     icon: <MdEvent />,
     subRoutes: [
       {
-        path: `/classes`,
-        name: "Classes",
-        icon: <IoSchoolOutline />,
+        path: "/committee",
+        name: "Exam Committee",
+        icon: <MdGroup  />,
       },
       {
-        path: "/evaluations",
-        name: "Evaluations",
-        icon: <BiTask />,
+        path: "/courses",
+        name: "Courses",
+        icon: <MdSchool  />,
+      },
+      {
+        path: "/meetings",
+        name: "Meeting",
+        icon: <MdRecordVoiceOver  />,
+      },
+    ],
+  },
+  {
+    name: "External Portal",
+    icon: <RiExternalLinkLine   />,
+    subRoutes: [
+      {
+        path: "",
+        name: "Editorial Management",
+        icon: <RiFileEditFill  />,
+      },
+      {
+        path: "",
+        name: "Leave management",
+        icon: <BiCalendarEvent  />,
+      },
+      {
+        path: "",
+        name: "Attendance Management",
+        icon: <FaRegCalendarCheck  />,
+      },
+      {
+        path: "",
+        name: "Exam Remuneration",
+        icon: <FaMoneyCheckAlt  />,
+      },
+      {
+        path: "",
+        name: "Meeting management",
+        icon: <MdMeetingRoom  />,
+      },
+      {
+        path: "",
+        name: "Result procession",
+        icon: <MdAssignment  />,
       },
     ],
   },
@@ -47,7 +83,7 @@ const routes = [
 const SideBar = ({ children }) => {
   const [isOpen, setIsOpen] = useState(true);
   const toggle = () => setIsOpen(!isOpen);
-  
+
   const showAnimation = {
     hidden: {
       width: 0,

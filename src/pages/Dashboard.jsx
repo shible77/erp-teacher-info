@@ -3,77 +3,68 @@ import axios from "axios";
 
 const Dashboard = ({ token }) => {
   const [currentUser, setCurrentUser] = useState();
-  const [record, setRecord] = useState([]);
   const [teacherInfo, setTeacherInfo] = useState(null);
   const [coursePublication, setCoursePublication] = useState(null);
-  
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  
+
   const [examCommitteeRecords, setExamCommitteeRecords] = useState([]); // New state for exam committee records
   const [meetingRecords, setMeetingRecords] = useState([]); // New state for meeting records
-  
+
   useEffect(() => {
     const fetchCurrentUser = () => {
-      axios.get('http://localhost:5000/api/user', {
-        headers: {
-          Authorization: `Bearer ${token}`, // Correct template literal for the Bearer token
-        },
-      }).then(res => {
-        setCurrentUser(res.data);
-        // console.log(res.data);
-      }).catch(err => {
-        console.log(err.message);
-      });
-    }
+      axios
+        .get("http://localhost:5000/api/user", {
+          headers: {
+            Authorization: `Bearer ${token}`, // Correct template literal for the Bearer token
+          },
+        })
+        .then((res) => {
+          setCurrentUser(res.data);
+          // console.log(res.data);
+        })
+        .catch((err) => {
+          console.log(err.message);
+        });
+    };
     fetchCurrentUser();
   }, []);
-  
+
   useEffect(() => {
     // Proceed only if `currentUser` is defined
     if (currentUser && currentUser.teacher_id) {
-      
-      const fetchData = async () => {
-        try {
-          const response = await axios.get(
-            `http://localhost:5000/api/teacher/courses/${currentUser.teacher_id}`,
-            {
-              headers: {
-                Authorization: `Bearer ${token}`, // Correct template literal for the Bearer token
-              },
-            }
-          );
-          setRecord(response.data);
-        } catch (error) {
-          console.error("Error fetching courses:", error);
-          setError(error.message);
-        }
-      };
-  
       const fetchTeacherInfo = () => {
         return axios
-          .get(`http://localhost:5000/api/teacher/${currentUser.teacher_id}`)
-          .then((res) => res.data)
-          .catch((error) => {
-            console.error("Error fetching teacher info:", error);
-            throw error;
-          });
-      };
-  
-      const fetchCourseCount = () => {
-        return axios
-          .get(`http://localhost:5000/api/teacher/teacher-stats/${currentUser.teacher_id}`, {
+          .get(`http://localhost:5000/api/teacher/${currentUser.teacher_id}`, {
             headers: {
               Authorization: `Bearer ${token}`, // Correct template literal for the Bearer token
             },
           })
           .then((res) => res.data)
           .catch((error) => {
+            console.error("Error fetching teacher info:", error);
+            throw error;
+          });
+      };
+
+      const fetchCourseCount = () => {
+        return axios
+          .get(
+            `http://localhost:5000/api/teacher/teacher-stats/${currentUser.teacher_id}`,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`, // Correct template literal for the Bearer token
+              },
+            }
+          )
+          .then((res) => res.data)
+          .catch((error) => {
             console.error("Error fetching course count:", error);
             throw error;
           });
       };
-  
+
       const fetchExamCommitteeRecords = async () => {
         try {
           const response = await axios.get(
@@ -90,7 +81,7 @@ const Dashboard = ({ token }) => {
           setError(error.message);
         }
       };
-  
+
       const fetchMeetingRecords = async () => {
         try {
           const response = await axios.get(
@@ -107,22 +98,20 @@ const Dashboard = ({ token }) => {
           setError(error.message);
         }
       };
-  
+
       const loadData = async () => {
         try {
-          await fetchData();
-  
           const [teacherInfoData, courseCountData] = await Promise.all([
             fetchTeacherInfo(),
             fetchCourseCount(),
           ]);
-  
+
           setTeacherInfo(teacherInfoData);
           setCoursePublication(courseCountData);
-  
+
           // Fetch exam committee records
           await fetchExamCommitteeRecords();
-  
+
           // Fetch meeting records
           await fetchMeetingRecords();
         } catch (error) {
@@ -134,7 +123,6 @@ const Dashboard = ({ token }) => {
       loadData();
     }
   }, [currentUser, token]); // Add `currentUser` as a dependency
-  
 
   if (loading) {
     return <div>Loading...</div>;
@@ -210,110 +198,10 @@ const Dashboard = ({ token }) => {
 
       <hr />
 
-      {/* Your Courses Section */}
-      <div className="row">
-        <h5 className="mt-3 mb-3 text-secondary">Your Courses</h5>
-        <div className="table-responsive">
-          <table className="table table-striped">
-            <thead className="thead-light">
-              <tr>
-                <th scope="col">Course Code</th>
-                <th scope="col">Course Title</th>
-                <th scope="col">Credit</th>
-                <th scope="col">Course Type</th>
-                <th scope="col">Exam Duration (minutes)</th>
-                <th scope="col">Session</th>
-                <th scope="col">Semester</th>
-                <th scope="col">Department</th>
-                <th scope="col">Faculty</th>
-                <th scope="col">Program Abbreviation</th>
-              </tr>
-            </thead>
-            <tbody>
-              {record.map((course) => (
-                <tr key={course.course_code}>
-                  <td>{course.course_code}</td>
-                  <td>{course.course_title}</td>
-                  <td>{course.credit}</td>
-                  <td>{course.course_type}</td>
-                  <td>{course.exam_minutes}</td>
-                  <td>{course.session}</td>
-                  <td>{course.semester}</td>
-                  <td>{course.department_name}</td>
-                  <td>{course.faculty}</td>
-                  <td>{course.program_abbr}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <hr />
-
-      {/* New Exam Committee Section */}
-      <div className="row">
-        <h5 className="mt-3 mb-3 text-secondary">Exam Committee Records</h5>
-        <div className="table-responsive">
-          <table className="table table-striped">
-            <thead className="thead-light">
-              <tr>
-                <th scope="col">Role</th>
-                <th scope="col">Exam Name</th>
-                <th scope="col">Exam Centre</th>
-                <th scope="col">Exam Start Date</th>
-                <th scope="col">Exam End Date</th>
-                <th scope="col">Formation Date</th>
-                <th scope="col">Department</th>
-                <th scope="col">Faculty</th>
-                <th scope="col">Session</th>
-                <th scope="col">Semester</th>
-                <th scope="col">Is Result Submitted</th>
-                <th scope="col">Result Submit Date</th>
-              </tr>
-            </thead>
-            <tbody>
-              {examCommitteeRecords.map((member) => (
-                <tr key={member.id}>
-                  <td>{member.role}</td>
-                  <td>{member.exam_name}</td>
-                  <td>{member.exam_centre}</td>
-                  <td>
-                    {new Date(member.exam_start_date).toLocaleDateString()}
-                  </td>{" "}
-                  {/* Format date */}
-                  <td>
-                    {new Date(member.exam_end_date).toLocaleDateString()}
-                  </td>{" "}
-                  {/* Format date */}
-                  <td>
-                    {new Date(member.formation_date).toLocaleDateString()}
-                  </td>{" "}
-                  {/* Format date */}
-                  <td>{member.department_name}</td>
-                  <td>{member.faculty}</td>
-                  <td>{member.session}</td>
-                  <td>{member.semester}</td>
-                  <td>{member.is_result_submitted ? "Yes" : "No"}</td>{" "}
-                  {/* Conditional rendering */}
-                  <td>
-                    {member.result_submit_date
-                      ? new Date(member.result_submit_date).toLocaleDateString()
-                      : "Not Submitted"}
-                  </td>{" "}
-                  {/* Format date or show default text */}
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <hr />
-
+      {/* New Meeting Section */}
       {/* New Meeting Section */}
       <div className="row">
-        <h5 className="mt-3 mb-3 text-secondary">Meeting Records</h5>
+        <h5 className="mt-3 mb-3 text-secondary">Upcoming Meeting</h5>
         <div className="table-responsive">
           <table className="table table-striped">
             <thead className="thead-light">
@@ -329,22 +217,96 @@ const Dashboard = ({ token }) => {
               </tr>
             </thead>
             <tbody>
-              {meetingRecords.map((meeting, index) => (
-                <tr key={index}>
-                  <td>{new Date(meeting.meeting_time).toLocaleString()}</td> {/* Format the date */}
-                  <td>{meeting.meeting_type}</td>
-                  <td>{meeting.room_name}</td>
-                  <td>{meeting.topic || "N/A"}</td> {/* Show "N/A" if topic is null */}
-                  <td>{meeting.description || "N/A"}</td> {/* Show "N/A" if description is null */}
-                  <td>{meeting.decision || "N/A"}</td> {/* Show "N/A" if decision is null */}
-                  <td>{meeting.department_name}</td>
-                  <td>{meeting.faculty}</td>
-                </tr>
-              ))}
+              {meetingRecords
+                .filter(
+                  (meeting) => new Date(meeting.meeting_time) > new Date()
+                ) // Filter future meetings
+                .map((meeting, index) => (
+                  <tr key={index}>
+                    <td>{new Date(meeting.meeting_time).toLocaleString()}</td>{" "}
+                    {/* Format the date */}
+                    <td>{meeting.meeting_type}</td>
+                    <td>{meeting.room_name}</td>
+                    <td>{meeting.topic || "N/A"}</td>{" "}
+                    {/* Show "N/A" if topic is null */}
+                    <td>{meeting.description || "N/A"}</td>{" "}
+                    {/* Show "N/A" if description is null */}
+                    <td>{meeting.decision || "N/A"}</td>{" "}
+                    {/* Show "N/A" if decision is null */}
+                    <td>{meeting.department_name}</td>
+                    <td>{meeting.faculty}</td>
+                  </tr>
+                ))}
             </tbody>
           </table>
         </div>
       </div>
+
+      <hr />
+
+      {/* New Exam Committee Section */}
+<div className="row">
+  <h5 className="mt-3 mb-3 text-secondary">Exam Committee Records</h5>
+  <div className="table-responsive">
+    <table className="table table-striped">
+      <thead className="thead-light">
+        <tr>
+          <th scope="col">Role</th>
+          <th scope="col">Exam Name</th>
+          <th scope="col">Exam Centre</th>
+          <th scope="col">Exam Start Date</th>
+          <th scope="col">Exam End Date</th>
+          <th scope="col">Formation Date</th>
+          <th scope="col">Department</th>
+          <th scope="col">Faculty</th>
+          <th scope="col">Session</th>
+          <th scope="col">Semester</th>
+          <th scope="col">Is Result Submitted</th>
+          <th scope="col">Result Submit Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        {examCommitteeRecords
+          .filter(member => 
+            new Date(member.formation_date) < new Date() && 
+            new Date(member.exam_end_date) > new Date()
+          ) // Filter based on formation and exam end date
+          .map((member) => (
+            <tr key={member.id}>
+              <td>{member.role}</td>
+              <td>{member.exam_name}</td>
+              <td>{member.exam_centre}</td>
+              <td>
+                {new Date(member.exam_start_date).toLocaleDateString()}
+              </td>{" "}
+              {/* Format date */}
+              <td>
+                {new Date(member.exam_end_date).toLocaleDateString()}
+              </td>{" "}
+              {/* Format date */}
+              <td>
+                {new Date(member.formation_date).toLocaleDateString()}
+              </td>{" "}
+              {/* Format date */}
+              <td>{member.department_name}</td>
+              <td>{member.faculty}</td>
+              <td>{member.session}</td>
+              <td>{member.semester}</td>
+              <td>{member.is_result_submitted ? "Yes" : "No"}</td>{" "}
+              {/* Conditional rendering */}
+              <td>
+                {member.result_submit_date
+                  ? new Date(member.result_submit_date).toLocaleDateString()
+                  : "Not Submitted"}
+              </td>{" "}
+              {/* Format date or show default text */}
+            </tr>
+          ))}
+      </tbody>
+    </table>
+  </div>
+</div>
+
 
       <hr />
     </div>
