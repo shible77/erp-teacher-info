@@ -33,7 +33,7 @@ function Profile({ token }) {
   const [open, setOpen] = React.useState(false);
   const [teacherInfo, setTeacherInfo] = useState(null);
   const [showModal, setShowModal] = useState(false);
-  const [profileImage, setProfileImage] = useState(TeacherImage);
+  const [profileImage, setProfileImage] = useState();
   const [data, setData] = useState(null);
   const [flag, setFlag] = useState(0);
   const [showDelModal, setShowDelModal] = useState(false);
@@ -43,6 +43,8 @@ function Profile({ token }) {
   const [editUserId, setEditUserId] = useState(null); // Tracks the flag to identify type of edit
   const [editTeacherId, setEditTeacherId] = useState(null); // Tracks the flag to identify type of edit
   const [deptInfo, setDeptInfo] = useState()
+  const preset_key = "uploadimage";
+  const cloud_name = "doh71p23w";
 
   useEffect(() => {
     const fetchCurrentUser = () => {
@@ -56,12 +58,28 @@ function Profile({ token }) {
         .then(res => {
           setDeptInfo(res.data)
         })
-      }).catch(err => {
+      })
+      .catch(err => {
         console.log(err.message);
       });
     }
     fetchCurrentUser();
   }, []);
+
+  useEffect(() => {
+    const fetchImage = () => {
+      if (currentUser && currentUser.profile_image_id) {
+        axios.get(`${basePath}/image/${currentUser.profile_image_id}`)
+        .then(res => {
+          setProfileImage(res.data.remote_image_url)
+        })
+        .catch(error => {
+          console.log(error)
+        })
+      }
+    }
+    fetchImage();
+  },[token, currentUser])
 
   const myDelClick = (index, flag) => {
     setData(index);
@@ -99,22 +117,33 @@ function Profile({ token }) {
     setShowModal(false);
   };
 
-  const handleUpload = (file) => {
+  const handleUpload = async (file) => {
     // Here, you would handle the image upload logic (e.g., to a server or local state)
     const formData = new FormData();
-    formData.append("image", file);
+    formData.append("file", file);
+    formData.append("upload_preset", preset_key);
 
-    axios
-      .post("http://localhost:5000/api/upload/image", formData)
-      .then((response) => {
-        setProfileImage(`http://localhost:5000/${response.data.image.path}`);
-        console.log(response.data);
-        console.log(response.data.image.path);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
+    await axios
+      .post(
+        `https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`,
+        formData,
+        {
+          withCredentials: false,
+        }
+      )
+      .then((res) => {
+        console.log(res.data.secure_url);
+        setProfileImage(res.data.secure_url)
+          if(currentUser && currentUser.profile_image_id) {
+            axios.put(`${basePath}/image/${currentUser.profile_image_id}`, { url : res.data.secure_url })
+            .then(res => {
+              // console.log(res.data);
+            })
+          }
+        })
+      .catch((err) => {
+        console.log(err);
       });
-
     // const imageUrl = URL.createObjectURL(file);
     // setProfileImage(imageUrl);
     handleCloseModal();
