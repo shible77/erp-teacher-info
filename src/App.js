@@ -7,8 +7,10 @@ import Profile from "./pages/Profile";
 import Courses from "./pages/Courses";
 import Committees from "./pages/ExamCommittee";
 import Meetings from "./pages/Meeting";
+import Cookies from 'js-cookie';
 function App() {
-  const token = "9853cf03-80ad-11ef-9269-3c5282764ceb";
+  // Cookies.set('csecu_user', '9853cf03-80ad-11ef-9269-3c5282764ceb', { expires: 7 })
+  const token = Cookies.get('csecu_user')
   return (
     <Router>
       <SideBar>

@@ -873,7 +873,7 @@ function Profile({ token }) {
         <div className="left-container">
           {deptInfo && (<div className="unilogo">{deptInfo.department_abbr}CU</div>)}
           <div className="separator"></div>
-         <div className="header-text">|PROFILES</div>
+         <div className="header-text">PROFILES</div>
         </div>
         <div className="search-container">
           <input
