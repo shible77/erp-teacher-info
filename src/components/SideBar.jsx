@@ -9,10 +9,12 @@ import { BsFileText } from "react-icons/bs";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import SidebarMenu from "./SidebarMenu";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const routes = [
   {
-    path: "/",
+    path: "/dashboard",
     name: "Dashboard",
     icon: <RiDashboardFill />,
   },
@@ -80,9 +82,11 @@ const routes = [
   },
 ];
 
-const SideBar = ({ children }) => {
+const SideBar = ({ children, setIsLoggedIn }) => {
   const [isOpen, setIsOpen] = useState(true);
   const toggle = () => setIsOpen(!isOpen);
+  const navigate = useNavigate()
+  const storedToken = sessionStorage.getItem("token");
 
   const showAnimation = {
     hidden: {
@@ -100,6 +104,13 @@ const SideBar = ({ children }) => {
       },
     },
   };
+
+  const basePath = process.env.REACT_APP_API_BASE_URL
+  const handleClick = () =>{
+    sessionStorage.removeItem("token")
+    setIsLoggedIn(false)
+    navigate('/')
+  }
 
   return (
     <div className="main-container">
@@ -173,6 +184,7 @@ const SideBar = ({ children }) => {
               </NavLink>
             );
           })}
+          <button type="button" class="btn btn-danger" onClick={handleClick}>Logout</button>
         </section>
       </motion.div>
 
