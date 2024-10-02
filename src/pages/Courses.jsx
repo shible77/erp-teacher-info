@@ -7,12 +7,13 @@ function Courses({ token }) {
   const [record, setRecord] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const basePath = process.env.REACT_APP_API_BASE_URL
   
 
   useEffect(() => {
     const fetchCurrentUser = () => {
       axios
-        .get("http://localhost:5000/api/user", {
+        .get(`${basePath}/user`, {
           headers: {
             Authorization: `Bearer ${token}`, // Correct template literal for the Bearer token
           },
@@ -34,7 +35,7 @@ function Courses({ token }) {
       const fetchData = async () => {
         try {
           const response = await axios.get(
-            `http://localhost:5000/api/teacher/courses/${currentUser.teacher_id}`,
+            `${basePath}/teacher/courses/${currentUser.teacher_id}`,
             {
               headers: {
                 Authorization: `Bearer ${token}`, // Correct template literal for the Bearer token
@@ -95,7 +96,7 @@ function Courses({ token }) {
             />
           </div>
         </div>
-        <button type="submit" class="btn btn-light">
+        <button type="submit" className="btn btn-light">
           Submit
         </button>
       </div>
@@ -122,7 +123,7 @@ function Courses({ token }) {
             </label>
           </div>
         </div>
-        <table class="table table-striped table-hover">
+        <table className="table table-striped table-hover">
           <thead>
             <tr>
               <th scope="col">Course Code</th>
@@ -139,8 +140,8 @@ function Courses({ token }) {
             </tr>
           </thead>
           <tbody>
-            {record.map((course) => (
-              <tr key={course.course_code}>
+            {record.map((course, index) => (
+              <tr key={index}>
                 <td>{course.course_code}</td>
                 <td>{course.course_title}</td>
                 <td>{course.credit}</td>
@@ -152,7 +153,7 @@ function Courses({ token }) {
                 <td>{course.faculty}</td>
                 <td>{course.program_abbr}</td>
                 <td>
-                  <button type="button" class="btn btn-danger btn-sm">
+                  <button type="button" className="btn btn-danger btn-sm">
                     Delete
                   </button>
                 </td>

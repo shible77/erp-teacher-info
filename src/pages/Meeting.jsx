@@ -7,11 +7,12 @@ function Meeting({ token }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [meetingRecords, setMeetingRecords] = useState([]); // New state for meeting records
+  const basePath = process.env.REACT_APP_API_BASE_URL
 
   useEffect(() => {
     const fetchCurrentUser = () => {
       axios
-        .get("http://localhost:5000/api/user", {
+        .get(`${basePath}/user`, {
           headers: {
             Authorization: `Bearer ${token}`, // Correct template literal for the Bearer token
           },
@@ -33,7 +34,7 @@ function Meeting({ token }) {
       const fetchMeetingRecords = async () => {
         try {
           const response = await axios.get(
-            `http://localhost:5000/api/teacher/meetings/${currentUser.teacher_id}`, // Update with the correct API endpoint
+            `${basePath}/teacher/meetings/${currentUser.teacher_id}`, // Update with the correct API endpoint
             {
               headers: {
                 Authorization: `Bearer ${token}`, // Correct template literal for the Bearer token
@@ -87,7 +88,7 @@ function Meeting({ token }) {
             <input type="time" className="form-control" id="startTime" />
           </div>
         </div>
-        <button type="submit" class="btn btn-light">
+        <button type="submit" className="btn btn-light">
           Submit
         </button>
       </div>
@@ -113,7 +114,7 @@ function Meeting({ token }) {
             </label>
           </div>
         </div>
-        <table class="table table-striped table-hover">
+        <table className="table table-striped table-hover">
           <thead>
             <tr>
               <th scope="col">Meeting Time</th>
@@ -130,20 +131,20 @@ function Meeting({ token }) {
           <tbody>
             {meetingRecords.map((meeting, index) => (
               <tr key={index}>
-                <td>{new Date(meeting.meeting_time).toLocaleString()}</td>{" "}
+                <td>{new Date(meeting.meeting_time).toLocaleString()}</td>
                 {/* Format the date */}
                 <td>{meeting.meeting_type}</td>
                 <td>{meeting.room_name}</td>
-                <td>{meeting.topic || "N/A"}</td>{" "}
+                <td>{meeting.topic || "N/A"}</td>
                 {/* Show "N/A" if topic is null */}
-                <td>{meeting.description || "N/A"}</td>{" "}
+                <td>{meeting.description || "N/A"}</td>
                 {/* Show "N/A" if description is null */}
-                <td>{meeting.decision || "N/A"}</td>{" "}
+                <td>{meeting.decision || "N/A"}</td>
                 {/* Show "N/A" if decision is null */}
                 <td>{meeting.department_name}</td>
                 <td>{meeting.faculty}</td>
                 <td>
-                  <button type="button" class="btn btn-danger btn-sm">
+                  <button type="button" className="btn btn-danger btn-sm">
                     Delete
                   </button>
                 </td>

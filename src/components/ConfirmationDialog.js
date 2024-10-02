@@ -1,6 +1,6 @@
 // src/components/ConfirmationDialog.js
 import React from 'react';
-import "../../css/ConfirmationDialog.css";
+import "../css/ConfirmationDialog.css";
 
 const ConfirmationDialog = ({ show, onClose, onConfirm }) => {
   if (!show) return null;

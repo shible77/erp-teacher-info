@@ -6,13 +6,13 @@ function ExamCommittee({ token }) {
   const [currentUser, setCurrentUser] = useState();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
+  const basePath = process.env.REACT_APP_API_BASE_URL
   const [examCommitteeRecords, setExamCommitteeRecords] = useState([]); // New state for exam committee records
 
   useEffect(() => {
     const fetchCurrentUser = () => {
       axios
-        .get("http://localhost:5000/api/user", {
+        .get(`${basePath}/user`, {
           headers: {
             Authorization: `Bearer ${token}`, // Correct template literal for the Bearer token
           },
@@ -34,7 +34,7 @@ function ExamCommittee({ token }) {
       const fetchExamCommitteeRecords = async () => {
         try {
           const response = await axios.get(
-            `http://localhost:5000/api/teacher/exam-committee/${currentUser.teacher_id}`,
+            `${basePath}/teacher/exam-committee/${currentUser.teacher_id}`,
             {
               headers: {
                 Authorization: `Bearer ${token}`, // Correct template literal for the Bearer token
@@ -88,7 +88,7 @@ function ExamCommittee({ token }) {
             <input type="text" className="form-control" id="dayOfWeek" />
           </div>
         </div>
-        <button type="submit" class="btn btn-light">
+        <button type="submit" className="btn btn-light">
           Submit
         </button>
       </div>
@@ -114,7 +114,7 @@ function ExamCommittee({ token }) {
             </label>
           </div>
         </div>
-        <table class="table table-striped table-hover">
+        <table className="table table-striped table-hover">
           <thead>
             <tr>
               <th scope="col">Role</th>
@@ -133,36 +133,36 @@ function ExamCommittee({ token }) {
             </tr>
           </thead>
           <tbody>
-            {examCommitteeRecords.map((member) => (
-              <tr key={member.id}>
+            {examCommitteeRecords.map((member, index) => (
+              <tr key={index}>
                 <td>{member.role}</td>
                 <td>{member.exam_name}</td>
                 <td>{member.exam_centre}</td>
                 <td>
                   {new Date(member.exam_start_date).toLocaleDateString()}
-                </td>{" "}
+                </td>
                 {/* Format date */}
                 <td>
                   {new Date(member.exam_end_date).toLocaleDateString()}
-                </td>{" "}
+                </td>
                 {/* Format date */}
                 <td>
                   {new Date(member.formation_date).toLocaleDateString()}
-                </td>{" "}
+                </td>
                 {/* Format date */}
                 <td>{member.department_name}</td>
                 <td>{member.faculty}</td>
                 <td>{member.session}</td>
                 <td>{member.semester}</td>
-                <td>{member.is_result_submitted ? "Yes" : "No"}</td>{" "}
+                <td>{member.is_result_submitted ? "Yes" : "No"}</td>
                 {/* Conditional rendering */}
                 <td>
                   {member.result_submit_date
                     ? new Date(member.result_submit_date).toLocaleDateString()
                     : "Not Submitted"}
-                </td>{" "}
+                </td>
                 <td>
-                  <button type="button" class="btn btn-danger btn-sm">
+                  <button type="button" className="btn btn-danger btn-sm">
                     Delete
                   </button>
                 </td>

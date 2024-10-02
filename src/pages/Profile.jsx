@@ -14,7 +14,7 @@ import ChildModal from "../modal/ChildModal"; // Import ChildModal component
 import axios from "axios";
 import UploadModal from "../modal/UploadModal";
 import DeleteModal from "../modal/DeleteModal";
-import ConfirmationDialog from "../components/Sidebar/ConfirmationDialog";
+import ConfirmationDialog from "../components/ConfirmationDialog";
 import { convertLength } from "@mui/material/styles/cssUtils";
 import EditEducationModal from "../editModal/EditEducation";
 import EditProfessionalModal from "../editModal/EditProfession";
@@ -27,6 +27,7 @@ import EditPublicationModal from "../editModal/EditPublication";
 import EditJournalModal from "../editModal/EditJournal";
 
 function Profile({ token }) {
+  const basePath = process.env.REACT_APP_API_BASE_URL
   const [currentUser, setCurrentUser] = useState();
   const [activeContent, setActiveContent] = useState("bio");
   const [open, setOpen] = React.useState(false);
@@ -41,16 +42,20 @@ function Profile({ token }) {
   const [editFlag, setEditFlag] = useState(null); // Tracks the flag to identify type of edit
   const [editUserId, setEditUserId] = useState(null); // Tracks the flag to identify type of edit
   const [editTeacherId, setEditTeacherId] = useState(null); // Tracks the flag to identify type of edit
+  const [deptInfo, setDeptInfo] = useState()
 
   useEffect(() => {
     const fetchCurrentUser = () => {
-      axios.get('http://localhost:5000/api/user', {
+      axios.get(`${basePath}/user`, {
         headers: {
           Authorization: `Bearer ${token}`, // Correct template literal for the Bearer token
         },
       }).then(res => {
         setCurrentUser(res.data);
-        // console.log(res.data);
+        axios.get(`${basePath}/department/${res.data.department_id}`)
+        .then(res => {
+          setDeptInfo(res.data)
+        })
       }).catch(err => {
         console.log(err.message);
       });
@@ -130,7 +135,7 @@ function Profile({ token }) {
   const fetchData = () => {
     if (currentUser && currentUser.teacher_id) {
     axios
-      .get(`http://localhost:5000/api/teacher/${currentUser.teacher_id}`, {
+      .get(`${basePath}/teacher/${currentUser.teacher_id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -837,9 +842,9 @@ function Profile({ token }) {
     <div className="continer">
       <div className="header">
         <div className="left-container">
-          <div className="unilogo">CU</div>
+          {deptInfo && (<div className="unilogo">{deptInfo.department_abbr}CU</div>)}
           <div className="separator"></div>
-          <div className="header-text">PROFILES</div>
+         <div className="header-text">|PROFILES</div>
         </div>
         <div className="search-container">
           <input
@@ -887,15 +892,14 @@ function Profile({ token }) {
             <i className="camera-icon">📷</i>
           </button>
         </div>
-        {teacherInfo && (
+        {teacherInfo &&  deptInfo && (
           <div className="info-container">
             <div className="teacherName">
               {teacherInfo.personal_info.first_name}{" "}
               {teacherInfo.personal_info.last_name}
             </div>
             <div className="designation">
-              {teacherInfo.personal_info.designation} of Computer Science and
-              Engineering, University of Chittagong
+              {teacherInfo.personal_info.designation} of {deptInfo.department_name}, University of Chittagong
             </div>
             <div className="email">
               Email: {teacherInfo.personal_info.email}

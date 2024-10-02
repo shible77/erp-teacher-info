@@ -11,18 +11,18 @@ const Dashboard = ({ token }) => {
 
   const [examCommitteeRecords, setExamCommitteeRecords] = useState([]); // New state for exam committee records
   const [meetingRecords, setMeetingRecords] = useState([]); // New state for meeting records
-
+  const basePath = process.env.REACT_APP_API_BASE_URL
+  // console.log(basePath)
   useEffect(() => {
     const fetchCurrentUser = () => {
       axios
-        .get("http://localhost:5000/api/user", {
+        .get(`${basePath}/user`, {
           headers: {
             Authorization: `Bearer ${token}`, // Correct template literal for the Bearer token
           },
         })
         .then((res) => {
           setCurrentUser(res.data);
-          // console.log(res.data);
         })
         .catch((err) => {
           console.log(err.message);
@@ -36,7 +36,7 @@ const Dashboard = ({ token }) => {
     if (currentUser && currentUser.teacher_id) {
       const fetchTeacherInfo = () => {
         return axios
-          .get(`http://localhost:5000/api/teacher/${currentUser.teacher_id}`, {
+          .get(`${basePath}/teacher/${currentUser.teacher_id}`, {
             headers: {
               Authorization: `Bearer ${token}`, // Correct template literal for the Bearer token
             },
@@ -51,7 +51,7 @@ const Dashboard = ({ token }) => {
       const fetchCourseCount = () => {
         return axios
           .get(
-            `http://localhost:5000/api/teacher/teacher-stats/${currentUser.teacher_id}`,
+            `${basePath}/teacher/teacher-stats/${currentUser.teacher_id}`,
             {
               headers: {
                 Authorization: `Bearer ${token}`, // Correct template literal for the Bearer token
@@ -68,7 +68,7 @@ const Dashboard = ({ token }) => {
       const fetchExamCommitteeRecords = async () => {
         try {
           const response = await axios.get(
-            `http://localhost:5000/api/teacher/exam-committee/${currentUser.teacher_id}`,
+            `${basePath}/teacher/exam-committee/${currentUser.teacher_id}`,
             {
               headers: {
                 Authorization: `Bearer ${token}`, // Correct template literal for the Bearer token
@@ -85,7 +85,7 @@ const Dashboard = ({ token }) => {
       const fetchMeetingRecords = async () => {
         try {
           const response = await axios.get(
-            `http://localhost:5000/api/teacher/meetings/${currentUser.teacher_id}`, // Update with the correct API endpoint
+            `${basePath}/teacher/meetings/${currentUser.teacher_id}`, // Update with the correct API endpoint
             {
               headers: {
                 Authorization: `Bearer ${token}`, // Correct template literal for the Bearer token
@@ -223,15 +223,15 @@ const Dashboard = ({ token }) => {
                 ) // Filter future meetings
                 .map((meeting, index) => (
                   <tr key={index}>
-                    <td>{new Date(meeting.meeting_time).toLocaleString()}</td>{" "}
+                    <td>{new Date(meeting.meeting_time).toLocaleString()}</td>
                     {/* Format the date */}
                     <td>{meeting.meeting_type}</td>
                     <td>{meeting.room_name}</td>
-                    <td>{meeting.topic || "N/A"}</td>{" "}
+                    <td>{meeting.topic || "N/A"}</td>
                     {/* Show "N/A" if topic is null */}
-                    <td>{meeting.description || "N/A"}</td>{" "}
+                    <td>{meeting.description || "N/A"}</td>
                     {/* Show "N/A" if description is null */}
-                    <td>{meeting.decision || "N/A"}</td>{" "}
+                    <td>{meeting.decision || "N/A"}</td>
                     {/* Show "N/A" if decision is null */}
                     <td>{meeting.department_name}</td>
                     <td>{meeting.faculty}</td>
@@ -271,34 +271,34 @@ const Dashboard = ({ token }) => {
             new Date(member.formation_date) < new Date() && 
             new Date(member.exam_end_date) > new Date()
           ) // Filter based on formation and exam end date
-          .map((member) => (
-            <tr key={member.id}>
+          .map((member, index) => (
+            <tr key={index}>
               <td>{member.role}</td>
               <td>{member.exam_name}</td>
               <td>{member.exam_centre}</td>
               <td>
                 {new Date(member.exam_start_date).toLocaleDateString()}
-              </td>{" "}
+              </td>
               {/* Format date */}
               <td>
                 {new Date(member.exam_end_date).toLocaleDateString()}
-              </td>{" "}
+              </td>
               {/* Format date */}
               <td>
                 {new Date(member.formation_date).toLocaleDateString()}
-              </td>{" "}
+              </td>
               {/* Format date */}
               <td>{member.department_name}</td>
               <td>{member.faculty}</td>
               <td>{member.session}</td>
               <td>{member.semester}</td>
-              <td>{member.is_result_submitted ? "Yes" : "No"}</td>{" "}
+              <td>{member.is_result_submitted ? "Yes" : "No"}</td>
               {/* Conditional rendering */}
               <td>
                 {member.result_submit_date
                   ? new Date(member.result_submit_date).toLocaleDateString()
                   : "Not Submitted"}
-              </td>{" "}
+              </td>
               {/* Format date or show default text */}
             </tr>
           ))}
