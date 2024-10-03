@@ -876,7 +876,7 @@ function Profile({ token }) {
          <div className="header-text">PROFILES</div>
         </div>
         <div className="edit-profile">
-          <button href="#" className="edit-profile-link" onClick={handleOpen}>
+          <button className="edit-profile-link" onClick={handleOpen}>
             EDIT MY PROFILE
           </button>
           <Modal open={open} onClose={handleClose}>
