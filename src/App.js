@@ -7,32 +7,60 @@ import Profile from "./pages/Profile";
 import Courses from "./pages/Courses";
 import Committees from "./pages/ExamCommittee";
 import Meetings from "./pages/Meeting";
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
 import Login from "./pages/Login";
-import { useState } from "react";
-import { useNavigate } from 'react-router-dom'
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
 function App() {
-  // Cookies.set('csecu_user', '9853cf03-80ad-11ef-9269-3c5282764ceb', { expires: 7 })
-  // const token = Cookies.get('csecu_user')
-  
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
-  const [token, setToken] = useState('')
-  
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [token, setToken] = useState("");
+
+  // Function to handle login and save the token in localStorage
+  const handleLogin = (token) => {
+    setToken(token);
+    setIsLoggedIn(true);
+    localStorage.setItem("authToken", token); // Store token in localStorage
+  };
+
+  // Check if token exists in localStorage on initial load
+  useEffect(() => {
+    const savedToken = localStorage.getItem("authToken");
+    if (savedToken) {
+      setToken(savedToken);
+      setIsLoggedIn(true); // If token exists, assume user is logged in
+    }
+  }, []); // Empty dependency array ensures this only runs once on mount
+
+  // Handle logout and clear the token
+  const handleLogout = () => {
+    setToken("");
+    setIsLoggedIn(false);
+    localStorage.removeItem("authToken"); // Clear token from localStorage
+  };
+
   return (
     <Router>
-     {isLoggedIn===false && <Routes>
-        <Route path="/" element={<Login setToken={setToken} setIsLoggedIn={setIsLoggedIn} />} />
-      </Routes> }
-      {isLoggedIn===true && <SideBar setIsLoggedIn={setIsLoggedIn}>
+      {isLoggedIn === false && (
         <Routes>
-        <Route path="/dashboard" element={<Dashboard token={token}/>} />
-        <Route path="/courses" element={<Courses token={token} />} />
-        <Route path="/committee" element={<Committees token={token} />} />
-          <Route path="/meetings" element={<Meetings token={token} />} />
-          <Route path="/profile" element={<Profile token={token} />} />
-          <Route path="*" element={<> not found</>} />
+          <Route
+            path="/"
+            element={<Login setToken={handleLogin} setIsLoggedIn={setIsLoggedIn} />}
+          />
         </Routes>
-      </SideBar>}
+      )}
+      {isLoggedIn === true && (
+        <SideBar setIsLoggedIn={handleLogout}>
+          <Routes>
+            <Route path="/dashboard" element={<Dashboard token={token} />} />
+            <Route path="/courses" element={<Courses token={token} />} />
+            <Route path="/committee" element={<Committees token={token} />} />
+            <Route path="/meetings" element={<Meetings token={token} />} />
+            <Route path="/profile" element={<Profile token={token} />} />
+            <Route path="*" element={<>Not Found</>} />
+          </Routes>
+        </SideBar>
+      )}
     </Router>
   );
 }

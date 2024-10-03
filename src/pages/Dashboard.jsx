@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import "../css/CoursesUpcomings.css"; // Import CSS file for styling
+import "../css/SideBar.css"
 
 const Dashboard = ({ token }) => {
   const [currentUser, setCurrentUser] = useState();

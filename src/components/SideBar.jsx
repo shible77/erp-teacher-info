@@ -1,9 +1,30 @@
 import { NavLink } from "react-router-dom";
-import { FaBars, FaUser, FaBook,FaExternalLinkAlt,FaRegCalendarCheck ,FaMoneyCheckAlt   } from "react-icons/fa";
-import { MdEventBusy, MdEvent,MdOpenInNew,MdEdit,MdMeetingRoom,MdAssignment,MdGroup,MdSchool ,MdRecordVoiceOver     } from "react-icons/md";
+import {
+  FaBars,
+  FaUser,
+  FaBook,
+  FaExternalLinkAlt,
+  FaRegCalendarCheck,
+  FaMoneyCheckAlt,
+} from "react-icons/fa";
+import {
+  MdEventBusy,
+  MdEvent,
+  MdOpenInNew,
+  MdEdit,
+  MdMeetingRoom,
+  MdAssignment,
+  MdGroup,
+  MdSchool,
+  MdRecordVoiceOver,
+} from "react-icons/md";
 import { BiCalendarEvent, BiTask } from "react-icons/bi";
 import { IoSchoolOutline } from "react-icons/io5";
-import { RiDashboardFill ,RiFileEditFill,RiExternalLinkLine } from "react-icons/ri";
+import {
+  RiDashboardFill,
+  RiFileEditFill,
+  RiExternalLinkLine,
+} from "react-icons/ri";
 import { AiOutlineMessage } from "react-icons/ai";
 import { BsFileText } from "react-icons/bs";
 import { useState } from "react";
@@ -11,6 +32,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import SidebarMenu from "./SidebarMenu";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import Logo from "../resource/logo.jpeg"
 
 const routes = [
   {
@@ -25,53 +47,53 @@ const routes = [
       {
         path: "/committee",
         name: "Exam Committee",
-        icon: <MdGroup  />,
+        icon: <MdGroup />,
       },
       {
         path: "/courses",
         name: "Courses",
-        icon: <MdSchool  />,
+        icon: <MdSchool />,
       },
       {
         path: "/meetings",
         name: "Meeting",
-        icon: <MdRecordVoiceOver  />,
+        icon: <MdRecordVoiceOver />,
       },
     ],
   },
   {
     name: "External Portal",
-    icon: <RiExternalLinkLine   />,
+    icon: <RiExternalLinkLine />,
     subRoutes: [
       {
         path: "",
         name: "Editorial Management",
-        icon: <RiFileEditFill  />,
+        icon: <RiFileEditFill />,
       },
       {
         path: "",
         name: "Leave management",
-        icon: <BiCalendarEvent  />,
+        icon: <BiCalendarEvent />,
       },
       {
         path: "",
         name: "Attendance Management",
-        icon: <FaRegCalendarCheck  />,
+        icon: <FaRegCalendarCheck />,
       },
       {
         path: "",
         name: "Exam Remuneration",
-        icon: <FaMoneyCheckAlt  />,
+        icon: <FaMoneyCheckAlt />,
       },
       {
         path: "",
         name: "Meeting management",
-        icon: <MdMeetingRoom  />,
+        icon: <MdMeetingRoom />,
       },
       {
         path: "",
         name: "Result procession",
-        icon: <MdAssignment  />,
+        icon: <MdAssignment />,
       },
     ],
   },
@@ -129,15 +151,15 @@ const SideBar = ({ children, setIsLoggedIn }) => {
         <div className="top_section">
           <AnimatePresence>
             {isOpen && (
-              <motion.h1
+              <motion.img
+                src={Logo}
+                alt="Logo"
                 variants={showAnimation}
                 initial="hidden"
                 animate="show"
                 exit="hidden"
                 className="logo"
-              >
-                TeachersIMS
-              </motion.h1>
+              />
             )}
           </AnimatePresence>
 
@@ -165,7 +187,9 @@ const SideBar = ({ children, setIsLoggedIn }) => {
                 key={index}
                 // className="link"
                 // activeClassName="active"
-                className={({ isActive }) => (isActive ? "active link" : "link")}
+                className={({ isActive }) =>
+                  isActive ? "active link" : "link"
+                }
               >
                 <div className="icon">{route.icon}</div>
                 <AnimatePresence>
