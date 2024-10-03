@@ -36,13 +36,13 @@ const EditTraining = ({ data, teacherId, onClose, refreshData, session_token }) 
       );
 
       if (response.status === 200) {
-        console.log("Training updated successfully:", response.data);
+        //console.log("Training updated successfully:", response.data);
         refreshData(); // Refresh data after update
         onClose(); // Close the modal after success
       }
     } catch (error) {
       console.error("Failed to update training:", error);
-      alert("An error occurred while updating the training. Please try again.");
+      //alert("An error occurred while updating the training. Please try again.");
       onClose(); // Close the modal after success
     }
   };

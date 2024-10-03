@@ -38,13 +38,13 @@ const EditScholarship = ({ data, teacherId, onClose, refreshData, session_token 
       );
 
       if (response.status === 200) {
-        console.log("Scholarship updated successfully:", response.data);
+        //console.log("Scholarship updated successfully:", response.data);
         refreshData(); // Refresh data after update
         onClose(); // Close the modal after success
       }
     } catch (error) {
       console.error("Failed to update scholarship:", error);
-      alert("An error occurred while updating the scholarship. Please try again.");
+      //alert("An error occurred while updating the scholarship. Please try again.");
       onClose(); // Close the modal after success
     }
   };

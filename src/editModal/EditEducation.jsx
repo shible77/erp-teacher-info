@@ -37,14 +37,14 @@ const EditEducation = ({ data, userId, onClose, refreshData, session_token }) =>
       );
 
       if (response.status === 200) {
-        console.log("Education updated successfully:", response.data);
+        //console.log("Education updated successfully:", response.data);
         refreshData(); // Call this to refresh the data after update
         onClose(); // Close the modal after success
       }
     } catch (error) {
       console.error("Failed to update education:", error);
       onClose(); // Close the modal after success
-      alert("An error occurred while updating education. Please try again.");
+      //alert("An error occurred while updating education. Please try again.");
     }
   };
 

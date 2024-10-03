@@ -36,13 +36,13 @@ const EditAccomplishment = ({ data, teacherId, onClose, refreshData, session_tok
       );
 
       if (response.status === 200) {
-        console.log("Accomplishment updated successfully:", response.data);
+        // console.log("Accomplishment updated successfully:", response.data);
         refreshData(); // Refresh data after update
         onClose(); // Close the modal after success
       }
     } catch (error) {
       console.error("Failed to update accomplishment:", error);
-      alert("An error occurred while updating the accomplishment. Please try again.");
+      // alert("An error occurred while updating the accomplishment. Please try again.");
       onClose(); // Close the modal after success
     }
   };

@@ -36,13 +36,13 @@ const EditAward = ({ data, teacherId, onClose, refreshData, session_token }) => 
       );
 
       if (response.status === 200) {
-        console.log("Award updated successfully:", response.data);
+        //console.log("Award updated successfully:", response.data);
         refreshData(); // Refresh data after update
         onClose(); // Close the modal after success
       }
     } catch (error) {
       console.error("Failed to update award:", error);
-      alert("An error occurred while updating the award. Please try again.");
+      //alert("An error occurred while updating the award. Please try again.");
       onClose(); // Close the modal after success
     }
   };

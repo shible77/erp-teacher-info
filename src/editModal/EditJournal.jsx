@@ -19,9 +19,9 @@ const EditJournal = ({ data, teacherId, onClose, refreshData, session_token }) =
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Submitting form with data:", formData);
-    console.log("TeacherId:", teacherId);
-    console.log("Session Token:", session_token);
+    //console.log("Submitting form with data:", formData);
+    //console.log("TeacherId:", teacherId);
+    //console.log("Session Token:", session_token);
 
     try {
       const response = await axios.put(
@@ -35,13 +35,13 @@ const EditJournal = ({ data, teacherId, onClose, refreshData, session_token }) =
       );
 
       if (response.status === 200) {
-        console.log("Journal updated successfully:", response.data);
+        //console.log("Journal updated successfully:", response.data);
         refreshData(); // Refresh data after update
         onClose(); // Close the modal after success
       }
     } catch (error) {
       console.error("Failed to update journal:", error);
-      alert("An error occurred while updating the journal. Please try again.");
+      //alert("An error occurred while updating the journal. Please try again.");
       onClose(); // Close the modal after success
     }
   };
