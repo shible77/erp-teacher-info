@@ -66,32 +66,32 @@ const routes = [
     icon: <RiExternalLinkLine />,
     subRoutes: [
       {
-        path: "",
+        path: "https://www.editorial-manager.bike-csecu.com:3010",
         name: "Editorial Management",
         icon: <RiFileEditFill />,
       },
       {
-        path: "",
+        path: "http://bike-csecu.com:3030/",
         name: "Leave management",
         icon: <BiCalendarEvent />,
       },
       {
-        path: "",
+        path: "https://www.attendance.bike-csecu.com:3040",
         name: "Attendance Management",
         icon: <FaRegCalendarCheck />,
       },
       {
-        path: "",
+        path: "https://www.cuers.bike-csecu.com:3080",
         name: "Exam Remuneration",
         icon: <FaMoneyCheckAlt />,
       },
       {
-        path: "",
+        path: "https://www.mms.bike-csecu.com:3120",
         name: "Meeting management",
         icon: <MdMeetingRoom />,
       },
       {
-        path: "",
+        path: "http://bike-csecu.com:3100/",
         name: "Result procession",
         icon: <MdAssignment />,
       },
@@ -208,7 +208,7 @@ const SideBar = ({ children, setIsLoggedIn }) => {
               </NavLink>
             );
           })}
-          <button type="button" class="btn btn-danger" onClick={handleClick}>Logout</button>
+          <button type="button" class="btn btn-danger mt-3 ml-2" onClick={handleClick}>Logout</button>
         </section>
       </motion.div>
 

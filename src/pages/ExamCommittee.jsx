@@ -73,26 +73,6 @@ function ExamCommittee({ token }) {
   return (
     <div className="col main ml-15 mt-2">
       <div className="inner-container">
-        <h4 className="heading">Filter Committee</h4>
-        <div className="mb-3 row">
-          <div className="col">
-            <label htmlFor="startTime" className="form-label">
-              Started Time
-            </label>
-            <input type="time" className="form-control" id="startTime" />
-          </div>
-          <div className="col">
-            <label htmlFor="dayOfWeek" className="form-label">
-              Day of Week
-            </label>
-            <input type="text" className="form-control" id="dayOfWeek" />
-          </div>
-        </div>
-        <button type="submit" className="btn btn-light">
-          Submit
-        </button>
-      </div>
-      <div className="inner-container">
         <h4 className="heading">Committee Records</h4>
         <div className="row mb-3">
           <div className="col-auto">
@@ -129,7 +109,7 @@ function ExamCommittee({ token }) {
               <th scope="col">Semester</th>
               <th scope="col">Is Result Submitted</th>
               <th scope="col">Result Submit Date</th>
-              <th scope="col">Action to Change</th>
+              {/* <th scope="col">Action to Change</th> */}
             </tr>
           </thead>
           <tbody>
@@ -161,11 +141,11 @@ function ExamCommittee({ token }) {
                     ? new Date(member.result_submit_date).toLocaleDateString()
                     : "Not Submitted"}
                 </td>
-                <td>
+                {/* <td>
                   <button type="button" className="btn btn-danger btn-sm">
                     Delete
                   </button>
-                </td>
+                </td> */}
                 {/* Format date or show default text */}
               </tr>
             ))}

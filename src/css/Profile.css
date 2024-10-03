@@ -21,7 +21,6 @@
 .unilogo {
   font-weight: 400;
   font-size: 30px;
-  margin-left: 20px;
 }
 
 .header-text {
@@ -42,6 +41,7 @@
   display: flex;
   align-items: center;
   flex-wrap: wrap;
+  margin-left: 20px;
 }
 
 .search-container {
@@ -77,12 +77,27 @@
   margin-right: 20px;
 }
 
+/* App.css */
 .edit-profile-link {
-  color: #fff;
-  text-decoration: none;
-  padding: 0 10px;
-  font-weight: bold;
+  background-color: #fff; /* Green background */
+  border: none; /* Remove default border */
+  color: black; /* White text */
+  padding: 10px 20px; /* Add some padding */
+  text-align: center; /* Center the text */
+  text-decoration: none; /* Remove underline */
+  display: inline-block; /* Make it inline */
+  font-size: 16px; /* Set font size */
+  margin: 10px 2px; /* Add margin */
+  cursor: pointer; /* Pointer cursor on hover */
+  border-radius: 50px; /* Rounded corners */
+  transition: background-color 0.3s ease; /* Smooth transition */
+  font-weight: 600;
 }
+
+.edit-profile-link:hover {
+  background-color: #ccc; /* Darker green on hover */
+}
+
 
 /* Media Queries for Responsive Design */
 @media (max-width: 768px) {

@@ -875,21 +875,10 @@ function Profile({ token }) {
           <div className="separator"></div>
          <div className="header-text">PROFILES</div>
         </div>
-        <div className="search-container">
-          <input
-            type="text"
-            className="search-input"
-            placeholder="Search by name, email, work phone..."
-          />
-          <button className="search-button">
-            {/* Add your search icon here */}
-            <FaSearch className="search-icon" />
-          </button>
-        </div>
         <div className="edit-profile">
-          <a href="#" className="edit-profile-link" onClick={handleOpen}>
+          <button href="#" className="edit-profile-link" onClick={handleOpen}>
             EDIT MY PROFILE
-          </a>
+          </button>
           <Modal open={open} onClose={handleClose}>
             <Box className="parent_modal-container">
               <h2 className="parent_modal-heading">

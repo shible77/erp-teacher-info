@@ -73,26 +73,6 @@ function Meeting({ token }) {
   return (
     <div className="col main ml-15 mt-2">
       <div className="inner-container">
-        <h4 className="heading">Filter Meetings</h4>
-        <div className="mb-3 row">
-          <div className="col">
-            <label htmlFor="startDate" className="form-label">
-              Started Date
-            </label>
-            <input type="date" className="form-control" id="startDate" />
-          </div>
-          <div className="col">
-            <label htmlFor="startTime" className="form-label">
-              Started Time
-            </label>
-            <input type="time" className="form-control" id="startTime" />
-          </div>
-        </div>
-        <button type="submit" className="btn btn-light">
-          Submit
-        </button>
-      </div>
-      <div className="inner-container">
         <h4 className="heading">Meeting Records</h4>
         <div className="row mb-3">
           <div className="col-auto">
@@ -125,7 +105,7 @@ function Meeting({ token }) {
               <th scope="col">Decision</th>
               <th scope="col">Department Name</th>
               <th scope="col">Faculty</th>
-              <th scope="col">Action to Change</th>
+              {/* <th scope="col">Action to Change</th> */}
             </tr>
           </thead>
           <tbody>
@@ -143,11 +123,11 @@ function Meeting({ token }) {
                 {/* Show "N/A" if decision is null */}
                 <td>{meeting.department_name}</td>
                 <td>{meeting.faculty}</td>
-                <td>
+                {/* <td>
                   <button type="button" className="btn btn-danger btn-sm">
                     Delete
                   </button>
-                </td>
+                </td> */}
               </tr>
             ))}
           </tbody>
