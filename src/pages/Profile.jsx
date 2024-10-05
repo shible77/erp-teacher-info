@@ -47,6 +47,7 @@ function Profile({ token }) {
   const cloud_name = "doh71p23w";
 
   useEffect(() => {
+    document.title = 'TIMS | Profile'
     const fetchCurrentUser = () => {
       axios.get(`${basePath}/user`, {
         headers: {

@@ -10,6 +10,7 @@ function ExamCommittee({ token }) {
   const [examCommitteeRecords, setExamCommitteeRecords] = useState([]); // New state for exam committee records
 
   useEffect(() => {
+    document.title = 'TIMS | ExamCommittee'
     const fetchCurrentUser = () => {
       axios
         .get(`${basePath}/user`, {

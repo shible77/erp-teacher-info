@@ -11,6 +11,7 @@ function Courses({ token }) {
   
 
   useEffect(() => {
+    document.title = 'TIMS | Courses'
     const fetchCurrentUser = () => {
       axios
         .get(`${basePath}/user`, {

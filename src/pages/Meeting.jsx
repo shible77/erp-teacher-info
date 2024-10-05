@@ -10,6 +10,7 @@ function Meeting({ token }) {
   const basePath = process.env.REACT_APP_API_BASE_URL
 
   useEffect(() => {
+    document.title = 'TIMS | Meeting'
     const fetchCurrentUser = () => {
       axios
         .get(`${basePath}/user`, {

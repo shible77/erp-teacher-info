@@ -8,6 +8,7 @@ function Login({ setToken, setIsLoggedIn }) {
     const navigate = useNavigate();
     const storedToken = sessionStorage.getItem("token");
     useEffect(() => {
+      document.title = 'TIMS | Login'
       if (storedToken) {
         setToken(storedToken);
         setIsLoggedIn(true);

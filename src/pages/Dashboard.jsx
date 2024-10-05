@@ -16,6 +16,7 @@ const Dashboard = ({ token }) => {
   const basePath = process.env.REACT_APP_API_BASE_URL
   // console.log(basePath)
   useEffect(() => {
+    document.title = 'TIMS | Dashboard'
     const fetchCurrentUser = () => {
       axios
         .get(`${basePath}/user`, {
